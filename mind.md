@@ -7,12 +7,12 @@
 
 ## Mind
 
-Cold brain
-The world is at war
-Forex is serious
-Reset
-Conditioning
-Training
+Cold brain  
+The world is at war  
+Forex is serious  
+Reset  
+Conditioning  
+Training  
 
 <!--------------------------------------------------------------------------------- Link -->
 [Economy]: https://github.com/kashanimorteza/economy_document/blob/main/README.md
