@@ -5,7 +5,9 @@
 <!--------------------------------------------------------------------------------- Subject -->
 <br><br>
 
-## Subject
+## Rules
+    The account should not be lost  
+    My account should not reach the survival limit  
 
 Attention : Call-Margin  
 Attention : Acount Risk  
