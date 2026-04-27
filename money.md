@@ -2,35 +2,32 @@
 # Money
 [Economy] > [Money]
 
-<!--------------------------------------------------------------------------------- Rules -->
+<!--------------------------------------------------------------------------------- Vision -->
 <br><br>
 
-## Rules
+## Vision
     No Call-Margin
-    No Survival limit (50% of Balance)
-
-
-<!--------------------------------------------------------------------------------- Parameters -->
-<br><br>
-
-## Parameters
-    Account Risk  
-    Account Power  
+    No Survival limit : (50% of Balance)
+    Make Loss Coverage  
 
 <!--------------------------------------------------------------------------------- Strategy -->
 <br><br>
 
 ## Strategy
-    Loss Coverage  
     Save Profit  
     Save Action  
     Hedge 
 
+<!--------------------------------------------------------------------------------- Parameters -->
+<br><br>
 
+## Parameters
+    Account Power  
+    Account Risk  
+    Profit Rate
+    Loss Rate
+    Volume : 0.1 / 0.2 / 0.3 / 0.5
 
-  
-Rate : Profit / Loss  
-Rate : Normal / Precaution /All-In /Explosion  
 
 <!--------------------------------------------------------------------------------- Link -->
 [Economy]: https://github.com/kashanimorteza/economy_document/blob/main/README.md
