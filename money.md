@@ -14,7 +14,7 @@
 <br><br>
 
 ## Parameters
-    Acount Risk  
+    Account Risk  
     Account Power  
 
 <!--------------------------------------------------------------------------------- Strategy -->
