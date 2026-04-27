@@ -2,21 +2,32 @@
 # Money
 [Economy] > [Money]
 
-<!--------------------------------------------------------------------------------- Subject -->
+<!--------------------------------------------------------------------------------- Rules -->
 <br><br>
 
 ## Rules
-    The account should not be lost  
-    My account should not reach the survival limit  
+    No Call-Margin
+    No Survival limit (50% of Balance)
 
-Attention : Call-Margin  
-Attention : Acount Risk  
-Attention : Account Power  
-  
-Strategy : Save Profit  
-Strategy : Save Action  
-Strategy : Loss Coverage  
-Strategy : Hedge  
+
+<!--------------------------------------------------------------------------------- Parameters -->
+<br><br>
+
+## Parameters
+    Acount Risk  
+    Account Power  
+
+<!--------------------------------------------------------------------------------- Strategy -->
+<br><br>
+
+## Strategy
+    Loss Coverage  
+    Save Profit  
+    Save Action  
+    Hedge 
+
+
+
   
 Rate : Profit / Loss  
 Rate : Normal / Precaution /All-In /Explosion  
