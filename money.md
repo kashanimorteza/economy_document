@@ -8,7 +8,8 @@
 ## Vision
     No Call-Margin
     No Survival limit : (50% of Balance)
-    Make Loss Coverage  
+    Taking the power of risk  
+    Normal / Precaution / All-In / Explosion
 
 <!--------------------------------------------------------------------------------- Strategy -->
 <br><br>
