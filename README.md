@@ -13,7 +13,5 @@
 [Idioms](https://github.com/kashanimorteza/economy_document/tree/main/idioms.md)  
 [Market](https://github.com/kashanimorteza/economy_document/tree/main/market.md)  
 
-[Forex](https://github.com/kashanimorteza/economy_document/tree/main/forex.md)  
-
 <!--------------------------------------------------------------------------------- Link -->
 [Economy]: https://github.com/kashanimorteza/economy_document/blob/main/README.md
