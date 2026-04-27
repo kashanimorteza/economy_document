@@ -7,10 +7,6 @@
 
 ## Subject
 
-
-<!--------------------------------------Idioms-->
-## <span class="red">Idioms</span>
-
 <!-----------Economy-->
 <table><tbody><tr><td>
     <table><tbody>
