@@ -5,6 +5,13 @@
 <!--------------------------------------------------------------------------------- Subject -->
 <br><br>
 
+## Diagram
+
+![](https://github.com/kashanimorteza/economy_document/blob/main/design/analysis.png)
+
+<!--------------------------------------------------------------------------------- Subject -->
+<br><br>
+
 ## Parameters
 Price  
 Direction  
