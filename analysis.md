@@ -9,10 +9,6 @@
 
 ![](https://github.com/kashanimorteza/economy_document/blob/main/design/analysis.png)
 
-<!--------------------------------------------------------------------------------- Parameters -->
-<br><br>
-
-## Parameters
 Domain  
 Point  
 Accept  
