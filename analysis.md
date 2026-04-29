@@ -14,7 +14,7 @@
 
 ## Parameters
 Domain  
-Point
+Point  
 Accept  
 Direction  
 Movement  
