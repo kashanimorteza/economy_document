@@ -9,15 +9,6 @@
 
 ![](https://github.com/kashanimorteza/economy_document/blob/main/design/analysis.png)
 
-Domain  
-Point  
-Accept  
-Direction  
-Movement  
-Duration  
-Credit  
-Option  
-
 <!--------------------------------------------------------------------------------- Domain -->
 <br><br>
 

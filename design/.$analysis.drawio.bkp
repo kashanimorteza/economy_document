@@ -16,10 +16,10 @@
         <mxCell id="COEvjrz7dM8iQSiR4-q4-20" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontSize=20;" value="Accept" vertex="1">
           <mxGeometry height="110" width="110" x="330" y="-90" as="geometry" />
         </mxCell>
-        <mxCell id="UgVuKg_2GZpk9K5rLmE_-4" parent="1" style="ellipse;whiteSpace=wrap;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=20;fontColor=default;fillColor=default;" value="Movement" vertex="1">
+        <mxCell id="UgVuKg_2GZpk9K5rLmE_-4" parent="1" style="ellipse;whiteSpace=wrap;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=20;fontColor=default;fillColor=default;" value="Direction" vertex="1">
           <mxGeometry height="110" width="110" x="450" y="-90" as="geometry" />
         </mxCell>
-        <mxCell id="GKTxMsg-ySDWSjF81W_L-3" parent="1" style="ellipse;whiteSpace=wrap;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=20;fontColor=default;fillColor=default;" value="Drirection" vertex="1">
+        <mxCell id="GKTxMsg-ySDWSjF81W_L-3" parent="1" style="ellipse;whiteSpace=wrap;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=20;fontColor=default;fillColor=default;" value="Movement" vertex="1">
           <mxGeometry height="110" width="110" x="570" y="-90" as="geometry" />
         </mxCell>
         <mxCell id="GKTxMsg-ySDWSjF81W_L-4" edge="1" parent="1" source="HRdKpd_t4PCCufJs8SFI-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;labelBackgroundColor=default;endArrow=classic;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" target="GKTxMsg-ySDWSjF81W_L-3" value="">
