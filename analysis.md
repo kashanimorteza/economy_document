@@ -13,11 +13,12 @@
 <br><br>
 
 ## Parameters
-Price  
+Domain  
+Point
+Accept  
 Direction  
 Movement  
 Duration  
-Accept  
 Credit  
 Option  
 
