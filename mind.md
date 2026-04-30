@@ -2,18 +2,29 @@
 # Mind
 [Economy] > [Mind]
 
+<!--------------------------------------------------------------------------------- Diagram -->
+<br><br>
+
+## Diagram
+
+![](https://github.com/kashanimorteza/economy_document/blob/main/design/mind.png)
+
+<!--------------------------------------------------------------------------------- Vision -->
+<br><br>
+
+## Vision
+The world is at war  
+Forex is serious  
+
 <!--------------------------------------------------------------------------------- Subject -->
 <br><br>
 
 ## Subject
 
 Cold brain  
-The world is at war  
-Forex is serious  
+Subconscious conditioning  
+Self-awareness training  
 Reset  
-Conditioning  
-Training  
-
 
 <!--------------------------------------------------------------------------------- Rules -->
 <br><br>
@@ -30,12 +41,10 @@ Training
 8 - اگر خواستی جبران بکنی حتماً سیو سود اولویتت باشه نه تارگت زدن   
 9 - موقع خبر پوزیشن باز نداشته باش   
 
+<!--------------------------------------------------------------------------------- Other -->
+<br><br>
 
-
-
-
-
-
+## Other
 <div class="" align="right" dir="rtl">
 <div class="md4">دنبال پول باش  و درگیر حاشیه نشو  مثل مسایل فنی</div>
 <div class="md4">همشیه مسایل رو از کل به جز بررسی کن و همچنین از جز به کل</div>
