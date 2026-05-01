@@ -6,10 +6,12 @@
 <br><br>
 
 ## Vision
-    No Call-Margin
-    No Survival limit : (50% of Balance)
-    Taking the power of risk  
-    Normal / Precaution / All-In / Explosion
+No Call-Margin  
+No Survival limit : (50% of Balance)  
+Taking the power of risk  
+Normal / Precaution / All-In / Explosion  
+اولویت از دست ندادن باشه   
+
 
 <!--------------------------------------------------------------------------------- Strategy -->
 <br><br>
