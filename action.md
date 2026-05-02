@@ -24,16 +24,10 @@
 <br><br>
 
 ## Subject
-
-Position  
-Profit  
-Volume  
-Pending  
-
-
-6 - Plan B  
-7 - Want what the market wants  
-
+راهی برای پوزیشن‌های بیشتر   
+راهی برای افزایش حجم معامله  
+راهی برای کاهش زمان معامله  
+راهی برای باز کردن معامله به صورت پندینگ  
 
 <!--------------------------------------------------------------------------------- Link -->
 [Economy]: https://github.com/kashanimorteza/economy_document/blob/main/README.md
