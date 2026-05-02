@@ -6,7 +6,7 @@
 <br><br>
 
 ## Diagram
-![](https://github.com/kashanimorteza/economy_document/blob/main/design/Action.png)
+![](https://github.com/kashanimorteza/economy_document/blob/main/design/action.png)
 
 <!--------------------------------------------------------------------------------- Rules -->
 <br><br>
