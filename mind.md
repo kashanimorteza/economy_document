@@ -6,7 +6,6 @@
 <br><br>
 
 ## Diagram
-
 ![](https://github.com/kashanimorteza/economy_document/blob/main/design/mind.png)
 
 <!--------------------------------------------------------------------------------- Vision -->
@@ -37,11 +36,10 @@
 <br><br>
 
 ## Subject
-
-Cold brain  
-Subconscious conditioning  
-Self-awareness training  
-Reset  
+مغز سرد   
+شرطی سازی ناخودآگاه
+آموزش خودآگاه
+بازیابی مجدد 
 
 <!--------------------------------------------------------------------------------- Other -->
 <br><br>

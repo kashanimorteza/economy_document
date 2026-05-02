@@ -6,7 +6,6 @@
 <br><br>
 
 ## Diagram
-
 ![](https://github.com/kashanimorteza/economy_document/blob/main/design/analysis.png)
 
 <!--------------------------------------------------------------------------------- Rules -->
@@ -24,7 +23,7 @@
 <br><br>
 
 ## Subject
-Read Chart  
+چارت خونی   
 
 
 
