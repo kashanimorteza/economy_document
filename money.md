@@ -6,6 +6,8 @@
 <br><br>
 
 ## Vision
+اولویت اولت از دست ندادن سرمایه باشد  
+
 No Call-Margin  
 No Survival limit : (50% of Balance)  
 Taking the power of risk  
