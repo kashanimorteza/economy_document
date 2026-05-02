@@ -24,6 +24,7 @@
 <br><br>
 
 ## Strategy
+Make Loss Money
 Save Profit  
 Save Action  
 Hedge  
