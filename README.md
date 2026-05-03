@@ -1,6 +1,9 @@
 <!--------------------------------------------------------------------------------- Economy -->
 # Economy
 
+![](https://github.com/kashanimorteza/economy_document/blob/main/design/economy.png)
+
+
 [Mind](https://github.com/kashanimorteza/economy_document/tree/main/mind.md)  
 [Analysis](https://github.com/kashanimorteza/economy_document/tree/main/analysis.md)  
 [Money](https://github.com/kashanimorteza/economy_document/tree/main/money.md)  
