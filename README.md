@@ -1,9 +1,14 @@
 <!--------------------------------------------------------------------------------- Economy -->
 # Economy
 
+<!--------------------------------------------------------------------------------- Diagram -->
+## Diagram
 ![](https://github.com/kashanimorteza/economy_document/blob/main/design/economy.png)
 
+<!--------------------------------------------------------------------------------- Subject -->
+<br><br>
 
+## Subject
 [Mind](https://github.com/kashanimorteza/economy_document/tree/main/mind.md)  
 [Analysis](https://github.com/kashanimorteza/economy_document/tree/main/analysis.md)  
 [Money](https://github.com/kashanimorteza/economy_document/tree/main/money.md)  
