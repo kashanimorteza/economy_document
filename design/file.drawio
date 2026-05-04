@@ -75,25 +75,25 @@
           <mxGeometry height="60" width="120" x="40" y="-940" as="geometry" />
         </mxCell>
         <mxCell id="aAURx_iuvBCc8qCQw75W-34" parent="1" style="whiteSpace=wrap;html=1;fontSize=20;" value="Movement" vertex="1">
-          <mxGeometry height="60" width="120" x="170" y="-870" as="geometry" />
-        </mxCell>
-        <mxCell id="aAURx_iuvBCc8qCQw75W-35" parent="1" style="whiteSpace=wrap;html=1;fontSize=20;" value="Duration" vertex="1">
           <mxGeometry height="60" width="120" x="300" y="-870" as="geometry" />
         </mxCell>
-        <mxCell id="aAURx_iuvBCc8qCQw75W-36" parent="1" style="whiteSpace=wrap;html=1;fontSize=20;" value="Credit" vertex="1">
+        <mxCell id="aAURx_iuvBCc8qCQw75W-35" parent="1" style="whiteSpace=wrap;html=1;fontSize=20;" value="Duration" vertex="1">
           <mxGeometry height="60" width="120" x="430" y="-870" as="geometry" />
         </mxCell>
-        <mxCell id="aAURx_iuvBCc8qCQw75W-37" parent="1" style="whiteSpace=wrap;html=1;fontSize=20;" value="Direction" vertex="1">
-          <mxGeometry height="60" width="120" x="40" y="-870" as="geometry" />
-        </mxCell>
-        <mxCell id="aAURx_iuvBCc8qCQw75W-38" parent="1" style="whiteSpace=wrap;html=1;fontSize=20;" value="Option" vertex="1">
+        <mxCell id="aAURx_iuvBCc8qCQw75W-36" parent="1" style="whiteSpace=wrap;html=1;fontSize=20;" value="Credit" vertex="1">
           <mxGeometry height="60" width="120" x="560" y="-870" as="geometry" />
         </mxCell>
-        <mxCell id="aAURx_iuvBCc8qCQw75W-39" parent="1" style="whiteSpace=wrap;html=1;fontSize=20;" value="Accept" vertex="1">
+        <mxCell id="aAURx_iuvBCc8qCQw75W-37" parent="1" style="whiteSpace=wrap;html=1;fontSize=20;" value="Direction" vertex="1">
+          <mxGeometry height="60" width="120" x="170" y="-870" as="geometry" />
+        </mxCell>
+        <mxCell id="aAURx_iuvBCc8qCQw75W-38" parent="1" style="whiteSpace=wrap;html=1;fontSize=20;" value="Option" vertex="1">
           <mxGeometry height="60" width="120" x="690" y="-870" as="geometry" />
         </mxCell>
+        <mxCell id="aAURx_iuvBCc8qCQw75W-39" parent="1" style="whiteSpace=wrap;html=1;fontSize=20;" value="Accept" vertex="1">
+          <mxGeometry height="60" width="120" x="820" y="-870" as="geometry" />
+        </mxCell>
         <mxCell id="aAURx_iuvBCc8qCQw75W-40" parent="1" style="whiteSpace=wrap;html=1;fontSize=20;" value="Scenario" vertex="1">
-          <mxGeometry height="60" width="120" x="170" y="-1010" as="geometry" />
+          <mxGeometry height="60" width="120" x="40" y="-870" as="geometry" />
         </mxCell>
         <mxCell id="aAURx_iuvBCc8qCQw75W-41" parent="1" style="whiteSpace=wrap;html=1;fontSize=20;" value="Rule" vertex="1">
           <mxGeometry height="60" width="120" x="40" y="-1010" as="geometry" />
