@@ -21,6 +21,7 @@
 [Knowledge](https://github.com/kashanimorteza/economy_document/tree/main/knowledge.md)  
 [Idioms](https://github.com/kashanimorteza/economy_document/tree/main/idioms.md)  
 [Market](https://github.com/kashanimorteza/economy_document/tree/main/market.md)  
+[Time](https://github.com/kashanimorteza/economy_document/tree/main/time.md)  
 
 <!--------------------------------------------------------------------------------- Link -->
 [Economy]: https://github.com/kashanimorteza/economy_document/blob/main/README.md
