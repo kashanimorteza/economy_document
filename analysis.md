@@ -48,11 +48,11 @@ Low and High of Asia,London,Usa
 Without Shadow  
 Chnage Of Character  
 
-<!--------------------------------------------------------------------------------- Chart -->
+<!--------------------------------------------------------------------------------- Price Action -->
 <br><br>
 
-## Chart
-  
+## Price Action
+Trend line
 
 <!--------------------------------------------------------------------------------- Link -->
 [Economy]: https://github.com/kashanimorteza/economy_document/blob/main/README.md

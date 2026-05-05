@@ -101,7 +101,7 @@
         <mxCell id="aAURx_iuvBCc8qCQw75W-42" parent="1" style="whiteSpace=wrap;html=1;fontSize=20;fontColor=#ffffff;fillColor=#008a00;strokeColor=#005700;" value="Analysis" vertex="1">
           <mxGeometry height="60" width="910" x="40" y="-1080" as="geometry" />
         </mxCell>
-        <mxCell id="ZZ9R47F-QMtyQbtzpcoZ-1" parent="1" style="whiteSpace=wrap;html=1;fontSize=20;" value="Chart" vertex="1">
+        <mxCell id="ZZ9R47F-QMtyQbtzpcoZ-2" parent="1" style="whiteSpace=wrap;html=1;fontSize=20;" value="Price Action" vertex="1">
           <mxGeometry height="60" width="120" x="560" y="-940" as="geometry" />
         </mxCell>
       </root>
