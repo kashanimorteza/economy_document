@@ -24,27 +24,40 @@
 دو طرف را محاسبه کن   
 روی یک طرف تعصب نداشته باش   
 
+<!--------------------------------------------------------------------------------- Vision -->
+<br><br>
+
+## Vision
+Fragtal  
+Data Mining  
+AI  
+
 <!--------------------------------------------------------------------------------- Domain -->
 <br><br>
 
-## Domain
+## Tools
+<!-------------------------------- Time -->
+### Time
+Market
+```
+Asia / Frankfort / London / New York
+```
+
+<!-------------------------------- Domain -->
+### Domain
 HLB  
 FVG  
 Order Block  
 Rejection Block  
 
-<!--------------------------------------------------------------------------------- Point -->
-<br><br>
-
-## Point
+<!-------------------------------- Point -->
+### Point
 Low that make high  
 Open and close of Asia,London,Usa  
 Low and High of Asia,London,Usa  
 
-<!--------------------------------------------------------------------------------- Candle -->
-<br><br>
-
-## Candle
+<!-------------------------------- Candle -->
+### Candle
 Without Shadow  
 Chnage Of Character  
 
