@@ -70,6 +70,8 @@ Low and High of Asia,London,Usa
 <br><br>
 
 ## Tools : Candle
+Type
+Position Of OCHL
 Without Shadow  
 Chnage Of Character  
 
