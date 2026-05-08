@@ -113,6 +113,9 @@
         <mxCell id="w9jUtBMpQIBY1rfO70S0-3" parent="1" style="whiteSpace=wrap;html=1;fontSize=20;" value="AI" vertex="1">
           <mxGeometry height="60" width="120" x="300" y="-940" as="geometry" />
         </mxCell>
+        <mxCell id="MFB_P75HCEgT6bkEwyFZ-1" parent="1" style="whiteSpace=wrap;html=1;fontSize=20;" value="Profile" vertex="1">
+          <mxGeometry height="60" width="120" x="690" y="-870" as="geometry" />
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
