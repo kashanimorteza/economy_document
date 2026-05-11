@@ -32,16 +32,7 @@
 
 ## Vision : Fragtal
 
-
-<!--------------------------------------------------------------------------------- Vision : Profile -->
-<br><br>
-
-## Vision : Profile
-Range > Expansion > Retracement  
-Range > Expansion > Reversal  
-
-
-<!--------------------------------------------------------------------------------- Vision : Data Mining -->
+<!--------------------------------------------------------------------------------- Vision : Data-Mining -->
 <br><br>
 
 ## Vision : Data Mining
@@ -52,7 +43,14 @@ Range > Expansion > Reversal
 ## Vision : AI
 
 
-<!--------------------------------------------------------------------------------- Toold : Time -->
+<!--------------------------------------------------------------------------------- Tools : Profile -->
+<br><br>
+
+## Tools : Profile
+Range > Expansion > Retracement  
+Range > Expansion > Reversal  
+
+<!--------------------------------------------------------------------------------- Tools : Time -->
 <br><br>
 
 ## Tools : Time
