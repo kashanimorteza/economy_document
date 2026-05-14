@@ -50,6 +50,12 @@
 Range > Expansion > Retracement  
 Range > Expansion > Reversal  
 
+<!--------------------------------------------------------------------------------- Tools : CRT -->
+<br><br>
+
+## Tools : CRT
+  
+
 <!--------------------------------------------------------------------------------- Tools : Time -->
 <br><br>
 
@@ -84,6 +90,7 @@ Type
 Position Of OCHL
 Without Shadow  
 Chnage Of Character  
+CRT  
 
 <!--------------------------------------------------------------------------------- Tools : Price Action -->
 <br><br>
