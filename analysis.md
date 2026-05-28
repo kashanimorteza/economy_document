@@ -74,6 +74,31 @@ FVG
 Order Block  
 Rejection Block  
 
+<!---------------------------------------Property -->
+### Property
+Sibject | TimeFrame | Start | Height | Touch | Close | Count
+
+<!---------------------------------------Action -->
+### Action
+Touch | Test | Violation
+
+
+
+<!--------------------------------------------------------------------------------- Tools : Line -->
+<br><br>
+
+## Tools : Line
+
+<!---------------------------------------SSL -->
+### SSL
+آخرین پایین سایکل   
+یک دامین باید به او اعتبار بدهد   
+بهتر است دامین تست شده باشد   
+اگر دامین نقض شده باشد تغییر جهت خواهیم داشت   
+
+
+
+
 <!--------------------------------------------------------------------------------- Tools : Point -->
 <br><br>
 
@@ -97,6 +122,14 @@ CRT
 
 ## Tools : Price Action
 Trend line
+
+<!--------------------------------------------------------------------------------- Tools : Smart-Money -->
+<br><br>
+
+## Tools : Smart-Money
+CRT
+LIT
+EQL / EQH
 
 <!--------------------------------------------------------------------------------- Link -->
 [Economy]: https://github.com/kashanimorteza/economy_document/blob/main/README.md
