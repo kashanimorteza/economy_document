@@ -38,13 +38,13 @@
 # Vision
 
 <!---------------------------------------Fragtal -->
-### Fragtal
+## Fragtal
 
 <!---------------------------------------Data Mining -->
-### Data Mining
+## Data Mining
 
 <!---------------------------------------AI -->
-### AI
+## AI
 
 
 
@@ -54,36 +54,36 @@
 # Tools
 
 <!---------------------------------------Profile --> 
-### Profile
+## Profile
     Range > Expansion > Retracement  
     Range > Expansion > Reversal  
 
 <!---------------------------------------CRT --> 
-### CRT
+## CRT
   
 <!---------------------------------------Time --> 
-### Time
+## Time
 Market
 ```
 Asia / Frankfort / London / New York
 ```
 
 <!---------------------------------------Domain --> 
-### Domain
+## Domain
 
 <!----------Type -->
-#### Type
+### Type
 HLB  
 FVG  
 Order Block  
 Rejection Block  
 
 <!----------Property -->
-#### Property
+### Property
 Sibject | TimeFrame | Start | Height | Touch | Close | Count
 
 <!----------Action -->
-#### Action
+### Action
 Touch | Test | Violation
 
 
@@ -92,20 +92,20 @@ Touch | Test | Violation
 ## Line
 
 <!----------SSL-->
-#### SSL
+### SSL
 آخرین پایین سایکل   
 یک دامین باید به او اعتبار بدهد   
 بهتر است دامین تست شده باشد   
 اگر دامین نقض شده باشد تغییر جهت خواهیم داشت   
 
 <!---------------------------------------Point --> 
-### Point
+## Point
 Low that make high  
 Open and close of Asia,London,Usa  
 Low and High of Asia,London,Usa  
 
 <!---------------------------------------Candle --> 
-### Candle
+## Candle
 Type
 Position Of OCHL
 Without Shadow  
@@ -113,11 +113,11 @@ Chnage Of Character
 CRT  
 
 <!---------------------------------------Price Action --> 
-### Price Action
+## Price Action
 Trend line
 
 <!---------------------------------------Smart-Money --> 
-### Smart-Money
+## Smart-Money
 CRT
 LIT
 EQL / EQH
