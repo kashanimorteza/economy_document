@@ -5,7 +5,7 @@
 
 
 <!--------------------------------------------------------------------------------- Diagram -->
-<br><br>
+<br><br><br>
 
 # Diagram
 ![](https://github.com/kashanimorteza/economy_document/blob/main/design/analysis.png)
@@ -13,7 +13,7 @@
 
 
 <!--------------------------------------------------------------------------------- Rules -->
-<br><br>
+<br><br><br>
 
 # Rules
 مارکت رو محاسبه کن به جای اینکه مارکت رو بسازی با تخیلاتت   
@@ -33,7 +33,7 @@
 
 
 <!--------------------------------------------------------------------------------- Vision -->
-<br><br>
+<br><br><br>
 
 # Vision
 
@@ -48,8 +48,8 @@
 
 
 
-<!--------------------------------------------------------------------------------- Tools : Profile -->
-<br><br>
+<!--------------------------------------------------------------------------------- Tools -->
+<br><br><br>
 
 # Tools
 
@@ -59,9 +59,13 @@
     Range > Expansion > Reversal  
 
 <!---------------------------------------CRT --> 
+<br><br>
+
 ## CRT
   
 <!---------------------------------------Time --> 
+<br><br>
+
 ## Time
 Market
 ```
@@ -69,42 +73,50 @@ Asia / Frankfort / London / New York
 ```
 
 <!---------------------------------------Domain --> 
+<br><br>
+
 ## Domain
 
 <!----------Type -->
 ### Type
-HLB  
-FVG  
-Order Block  
-Rejection Block  
+    HLB  
+    FVG  
+    Order Block  
+    Rejection Block  
 
 <!----------Property -->
 ### Property
-Sibject | TimeFrame | Start | Height | Touch | Close | Count
+    Sibject | TimeFrame | Start | Height | Touch | Close | Count
 
 <!----------Action -->
 ### Action
-Touch | Test | Violation
+    Touch | Test | Violation
 
 
 
 <!---------------------------------------Line --> 
+<br><br>
+
 ## Line
 
 <!----------SSL-->
 ### SSL
-آخرین پایین سایکل   
-یک دامین باید به او اعتبار بدهد   
-بهتر است دامین تست شده باشد   
-اگر دامین نقض شده باشد تغییر جهت خواهیم داشت   
+    آخرین پایین سایکل   
+    یک دامین باید به او اعتبار بدهد   
+    بهتر است دامین تست شده باشد   
+    اگر دامین نقض شده باشد تغییر جهت خواهیم داشت   
 
 <!---------------------------------------Point --> 
+<br><br>
+
 ## Point
 Low that make high  
 Open and close of Asia,London,Usa  
 Low and High of Asia,London,Usa  
 
 <!---------------------------------------Candle --> 
+<br><br>
+
 ## Candle
 Type
 Position Of OCHL
@@ -113,10 +125,14 @@ Chnage Of Character
 CRT  
 
 <!---------------------------------------Price Action --> 
+<br><br>
+
 ## Price Action
 Trend line
 
 <!---------------------------------------Smart-Money --> 
+<br><br>
+
 ## Smart-Money
 CRT
 LIT
