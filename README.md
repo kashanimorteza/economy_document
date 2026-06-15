@@ -29,3 +29,10 @@
 
 jahan bakhsh 
 yamini
+
+
+
+indicatoru
+------------------------------
+FXN-Week and Day Seperator
+
