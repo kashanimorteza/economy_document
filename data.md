@@ -44,8 +44,12 @@
 <br><br>
 
 ### Price
-    Target     : close - open
-    Excitation : High -Low
+    Result           : Close - Open
+    Excitation_Total : High - Low
+    Excitation_First : Low | High
+    Excitation_High  : High - open
+    Excitation_Low   : Open - Low
+    ReEx             : Result / Excitation
 
 
 
