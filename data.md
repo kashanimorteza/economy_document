@@ -9,16 +9,22 @@
 ![](https://github.com/kashanimorteza/economy_document/blob/main/design/data.png)
 
 
-<!--------------------------------------------------------------------------------- Rules -->
+
+<!--------------------------------------------------------------------------------- Time -->
 <br><br>
 
-### Symbol
-    Symbol  - First - Seccond
-    (EUR/USD - EUR   - USD)
+## Time
 
-### DateTime
-    Year - Month - Day - H - M - S
-    DayOfYear - DayOfWeek - 
+### Moment
+    y   : Year
+    moy : MonthOfYear
+    wom : WeekOfMonth
+    dow : DayOfWeek
+    dom : DayOfMonth
+    doy : DayOfYear
+    hod : HourOfDay
+    moh : MinuteOfHour
+    som : SeccondOfMinute
 
 ### Period
     MO1 - W1 - D1 - H8 - H6 - H4 - H3 - H2 - H1 - m30 - m15 - m5 - m1
@@ -33,10 +39,14 @@
     USA         : 15:00 23:00
 
 
-<!--------------------------------------------------------------------------------- Subject -->
+
+<!--------------------------------------------------------------------------------- Price -->
 <br><br>
 
-## Subject
+### Price
+    Target     : close - open
+    Excitation : High -Low
+
 
 
 <!--------------------------------------------------------------------------------- Link -->
