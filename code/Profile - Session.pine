@@ -1,0 +1,791 @@
+//@version=6
+indicator("MAFX - Profile - Session",overlay=true, max_lines_count=500)
+
+
+
+//*********************************************************************************************************************************
+// INPUT
+//*********************************************************************************************************************************
+//************************************
+//*** Asia
+//************************************
+asia_all_enable = input.bool(false, "All", group="-------------------- Asia", inline = '1')
+asia_past_enable = input.bool(false, "Past", group="-------------------- Asia", inline = '1')
+asia_live_enable = input.bool(false, "Live", group="-------------------- Asia", inline = '1')
+asia_label_enable = input.bool(false, "Label", group="-------------------- Asia", inline = '1')
+asia_total_enable = input.bool(false, "Total", group="-------------------- Asia", inline = '1')
+asia_color_line = input.color(color.new(color.yellow, 50), "", group="-------------------- Asia", inline = '1')
+asia_color_label = input.color(color.new(color.white, 50), "", group="-------------------- Asia", inline = '1')
+asia_color_bullish = input.color(color.new(color.green, 0), "", group="-------------------- Asia", inline = '1')
+asia_color_bearish = input.color(color.new(color.red, 0), "", group="-------------------- Asia", inline = '1')
+asia_limit  = input.int(31, "", minval=1, maxval=100, group="-------------------- Asia", inline = '2')
+asia_style_movement = input.string("Solid", "", options=["Solid","Dashed","Dotted"], group="-------------------- Asia", inline = '2')
+asia_style_total = input.string("Dashed", "", options=["Solid","Dashed","Dotted"], group="-------------------- Asia", inline = '2')
+asia_width = input.int(1, "", minval=1, maxval=5, group="-------------------- Asia", inline = '2')
+
+//************************************
+//*** Uk
+//************************************
+uk_all_enable = input.bool(false, "All", group="-------------------- Uk", inline = '1')
+uk_past_enable = input.bool(false, "Past", group="-------------------- Uk", inline = '1')
+uk_live_enable = input.bool(false, "Live", group="-------------------- Uk", inline = '1')
+uk_label_enable = input.bool(false, "Label", group="-------------------- Uk", inline = '1')
+uk_total_enable = input.bool(false, "Total", group="-------------------- Uk", inline = '1')
+uk_color_line = input.color(color.new(color.green, 50), "", group="-------------------- Uk", inline = '1')
+uk_color_label = input.color(color.new(color.white, 50), "", group="-------------------- Uk", inline = '1')
+uk_color_bullish = input.color(color.new(color.green, 0), "", group="-------------------- Uk", inline = '1')
+uk_color_bearish = input.color(color.new(color.red, 0), "", group="-------------------- Uk", inline = '1')
+uk_limit  = input.int(31, "", minval=1, maxval=100, group="-------------------- Uk", inline = '2')
+uk_style_movement = input.string("Solid", "", options=["Solid","Dashed","Dotted"], group="-------------------- Uk", inline = '2')
+uk_style_total = input.string("Dashed", "", options=["Solid","Dashed","Dotted"], group="-------------------- Uk", inline = '2')
+uk_width = input.int(1, "", minval=1, maxval=5, group="-------------------- Uk", inline = '2')
+
+
+//************************************
+//*** Usa
+//************************************
+usa_all_enable = input.bool(false, "All", group="-------------------- Usa", inline = '1')
+usa_past_enable = input.bool(false, "Past", group="-------------------- Usa", inline = '1')
+usa_live_enable = input.bool(false, "Live", group="-------------------- Usa", inline = '1')
+usa_label_enable = input.bool(false, "Label", group="-------------------- Usa", inline = '1')
+usa_total_enable = input.bool(false, "Total", group="-------------------- Usa", inline = '1')
+usa_color_line = input.color(color.new(color.blue, 50), "", group="-------------------- Usa", inline = '1')
+usa_color_label = input.color(color.new(color.white, 50), "", group="-------------------- Usa", inline = '1')
+usa_color_bullish = input.color(color.new(color.green, 0), "", group="-------------------- Usa", inline = '1')
+usa_color_bearish = input.color(color.new(color.red, 0), "", group="-------------------- Usa", inline = '1')
+usa_limit  = input.int(31, "", minval=1, maxval=100, group="-------------------- Usa", inline = '2')
+usa_style_movement = input.string("Solid", "", options=["Solid","Dashed","Dotted"], group="-------------------- Usa", inline = '2')
+usa_style_total = input.string("Dashed", "", options=["Solid","Dashed","Dotted"], group="-------------------- Usa", inline = '2')
+usa_width = input.int(1, "", minval=1, maxval=5, group="-------------------- Usa", inline = '2')
+
+//*************************
+//*** General
+//*************************
+general_tz= input.string("Europe/Moscow","Time Zone",options = ["Europe/Moscow","UTC","Europe/London","America/New_York","Asia/Tokyo","Asia/Dubai"], group="-------------------- General", inline = '1')
+asia_session = input.session("0000-0800", "Asia", group="-------------------- General", inline = '2')
+uk_session = input.session("1000-1800", "Uk", group="-------------------- General", inline = '3')
+usa_session = input.session("1500-2400", "Usa", group="-------------------- General", inline = '4')
+
+
+//*********************************************************************************************************************************
+// Method
+//*********************************************************************************************************************************
+//*************************
+//*** General
+//*************************
+in_this_year = year(time, general_tz) == year(timenow, general_tz) 
+in_this_month = year(time, general_tz) == year(timenow, general_tz) and month(time, general_tz) == month(timenow, general_tz) 
+in_this_week = year(time, general_tz) == year(timenow, general_tz) and month(time, general_tz) == month(timenow, general_tz) 
+in_this_day = year(time, general_tz) == year(timenow, general_tz) and month(time, general_tz) == month(timenow, general_tz) and weekofyear(time, general_tz) == weekofyear(timenow, general_tz) and dayofmonth(time, general_tz) == dayofmonth(timenow, general_tz)
+
+
+//------------
+//f_get_month
+//------------
+f_get_month(_time) =>
+    //------Variable
+    int m = month(_time)
+    int d = dayofmonth(_time)
+    //------Action
+    m := d > 1 ? m + 1 : m
+    m := m > 12 ? 1 : m
+    //------return
+    m
+//------------
+//is_this_year
+//------------
+is_this_year() =>
+    if year(timenow) == year(time)
+        true
+    else
+        false
+//-------------
+//is_this_month
+//-------------
+is_this_month() =>
+    if is_this_year()
+        if month(timenow) == month(time)
+            true
+        else
+            false
+
+//-------------
+//is_this_week
+//-------------
+is_this_week() =>
+    if is_this_month()
+        if weekofyear(timenow) == weekofyear(time)
+            true
+        else
+            false
+//-------------
+//is_this_day
+//-------------
+is_this_day() =>
+    if is_this_month()
+        if dayofmonth(timenow) == dayofmonth(time)
+            true
+        else
+            false
+
+
+
+//*********************************************************************************************************************************
+// Data
+//*********************************************************************************************************************************
+//*************************
+//*** Session
+//*************************
+//----------
+//Asia
+//----------
+asia_inSession    = not na(time(timeframe.period, asia_session, general_tz))
+asia_startSession = asia_inSession and not asia_inSession[1]
+asia_endSession   = not asia_inSession and asia_inSession[1]
+//----------
+//Uk
+//----------
+uk_inSession    = not na(time(timeframe.period, uk_session, general_tz))
+uk_startSession = uk_inSession and not uk_inSession[1]
+uk_endSession   = not uk_inSession and uk_inSession[1]
+//----------
+//Usa
+//----------
+usa_inSession    = not na(time(timeframe.period, usa_session, general_tz))
+usa_startSession = usa_inSession and not usa_inSession[1]
+usa_endSession   = not usa_inSession and usa_inSession[1]
+
+//*************************
+//*** Asia
+//*************************
+//----------
+//Style
+//----------
+asia_style_movement_value = asia_style_movement == "Solid" ? line.style_solid : asia_style_movement == "Dashed" ? line.style_dashed : line.style_dotted
+asia_style_total_value = asia_style_total == "Solid" ? line.style_solid : asia_style_total == "Dashed" ? line.style_dashed : line.style_dotted
+//----------
+//Past
+//----------
+//Color
+color asia_past_color_profile = uk_color_bearish
+//Index
+var int asia_past_open_index  = na
+var int asia_past_high_index  = na
+var int asia_past_low_index   = na
+var int asia_past_close_index = na
+//Price
+var float asia_past_open_price  = na
+var float asia_past_high_price  = na
+var float asia_past_low_price   = na
+var float asia_past_close_price = na
+//Line
+var asia_past_line_movement = array.new_line()
+var asia_past_line_total = array.new_line()
+//Label
+var asia_past_label_movement = array.new_label()
+var asia_past_label_total = array.new_label()
+asia_past_label_movement_style = label.style_label_down
+asia_past_label_total_style = label.style_label_down
+asia_past_text_color = color.black
+//----------
+//Live
+//----------
+//Color
+color asia_live_color_profile = asia_color_bearish
+//Index
+var int asia_live_open_index  = na
+var int asia_live_high_index  = na
+var int asia_live_low_index   = na
+var int asia_live_close_index = na
+//Price
+var float asia_live_open_price  = na
+var float asia_live_high_price  = na
+var float asia_live_low_price   = na
+var float asia_live_close_price = na
+//Line
+var line asia_live_line_1 = na
+var line asia_live_line_2 = na
+var line asia_live_line_3 = na
+var line asia_live_line_4 = na
+var asia_live_line_movement = array.new_line()
+var asia_live_line_total = array.new_line()
+//Label
+var label asia_live_label_1 = na
+var label asia_live_label_2 = na
+var label asia_live_label_3 = na
+var label asia_live_label_4 = na
+var asia_live_label_movement = array.new_label()
+var asia_live_label_total = array.new_label()
+asia_live_label_movement_style = label.style_label_down
+asia_live_label_total_style = label.style_label_down
+asia_live_text_color = color.black
+
+//*************************
+//*** Uk
+//*************************
+//----------
+//Style
+//----------
+uk_style_movement_value = uk_style_movement == "Solid" ? line.style_solid : uk_style_movement == "Dashed" ? line.style_dashed : line.style_dotted
+uk_style_total_value = uk_style_total == "Solid" ? line.style_solid : uk_style_total == "Dashed" ? line.style_dashed : line.style_dotted
+//----------
+//Past
+//----------
+//Color
+color uk_past_color_profile = uk_color_bearish
+//Index
+var int uk_past_open_index  = na
+var int uk_past_high_index  = na
+var int uk_past_low_index   = na
+var int uk_past_close_index = na
+//Price
+var float uk_past_open_price  = na
+var float uk_past_high_price  = na
+var float uk_past_low_price   = na
+var float uk_past_close_price = na
+//Line
+var uk_past_line_movement = array.new_line()
+var uk_past_line_total = array.new_line()
+//Label
+var uk_past_label_movement = array.new_label()
+var uk_past_label_total = array.new_label()
+uk_past_label_movement_style = label.style_label_down
+uk_past_label_total_style = label.style_label_down
+uk_past_text_color = color.black
+//----------
+//Live
+//----------
+//Color
+color uk_live_color_profile = uk_color_bearish
+//Index
+var int uk_live_open_index  = na
+var int uk_live_high_index  = na
+var int uk_live_low_index   = na
+var int uk_live_close_index = na
+//Price
+var float uk_live_open_price  = na
+var float uk_live_high_price  = na
+var float uk_live_low_price   = na
+var float uk_live_close_price = na
+//Line
+var line uk_live_line_1 = na
+var line uk_live_line_2 = na
+var line uk_live_line_3 = na
+var line uk_live_line_4 = na
+var uk_live_line_movement = array.new_line()
+var uk_live_line_total = array.new_line()
+//Label
+var label uk_live_label_1 = na
+var label uk_live_label_2 = na
+var label uk_live_label_3 = na
+var label uk_live_label_4 = na
+var uk_live_label_movement = array.new_label()
+var uk_live_label_total = array.new_label()
+uk_live_label_movement_style = label.style_label_down
+uk_live_label_total_style = label.style_label_down
+uk_live_text_color = color.black
+
+//*************************
+//*** Usa
+//*************************
+//----------
+//Style
+//----------
+usa_style_movement_value = usa_style_movement == "Solid" ? line.style_solid : usa_style_movement == "Dashed" ? line.style_dashed : line.style_dotted
+usa_style_total_value = usa_style_total == "Solid" ? line.style_solid : usa_style_total == "Dashed" ? line.style_dashed : line.style_dotted
+//----------
+//Past
+//----------
+//Color
+color usa_past_color_profile = uk_color_bearish
+//Index
+var int usa_past_open_index  = na
+var int usa_past_high_index  = na
+var int usa_past_low_index   = na
+var int usa_past_close_index = na
+//Price
+var float usa_past_open_price  = na
+var float usa_past_high_price  = na
+var float usa_past_low_price   = na
+var float usa_past_close_price = na
+//Line
+var usa_past_line_movement = array.new_line()
+var usa_past_line_total = array.new_line()
+//Label
+var usa_past_label_movement = array.new_label()
+var usa_past_label_total = array.new_label()
+usa_past_label_movement_style = label.style_label_down
+usa_past_label_total_style = label.style_label_down
+usa_past_text_color = color.black
+//----------
+//Live
+//----------
+//Color
+color usa_live_color_profile = usa_color_bearish
+//Index
+var int usa_live_open_index  = na
+var int usa_live_high_index  = na
+var int usa_live_low_index   = na
+var int usa_live_close_index = na
+//Price
+var float usa_live_open_price  = na
+var float usa_live_high_price  = na
+var float usa_live_low_price   = na
+var float usa_live_close_price = na
+//Line
+var line usa_live_line_1 = na
+var line usa_live_line_2 = na
+var line usa_live_line_3 = na
+var line usa_live_line_4 = na
+var usa_live_line_movement = array.new_line()
+var usa_live_line_total = array.new_line()
+//Label
+var label usa_live_label_1 = na
+var label usa_live_label_2 = na
+var label usa_live_label_3 = na
+var label usa_live_label_4 = na
+var usa_live_label_movement = array.new_label()
+var usa_live_label_total = array.new_label()
+usa_live_label_movement_style = label.style_label_down
+usa_live_label_total_style = label.style_label_down
+usa_live_text_color = color.black
+
+
+
+//*********************************************************************************************************************************
+// Action
+//*********************************************************************************************************************************
+//*************************
+//Asia
+//*************************
+//----------
+//Past
+//----------
+if asia_past_enable or asia_all_enable
+    //------Set
+    if asia_startSession
+        //---Index
+        asia_past_open_index := bar_index
+        asia_past_high_index := bar_index
+        asia_past_low_index := bar_index
+        asia_past_close_index := bar_index
+        //---Price
+        asia_past_open_price := open
+        asia_past_high_price := high
+        asia_past_low_price := low
+        asia_past_close_price := close
+    //------Update
+    if asia_inSession
+        //---High
+        if high >= asia_past_high_price
+            asia_past_high_price := high
+            asia_past_high_index := bar_index
+        //---Low
+        if low <= asia_past_low_price
+            asia_past_low_price := low
+            asia_past_low_index := bar_index
+        //---Close
+        asia_past_close_price := close
+        asia_past_close_index := bar_index
+    //------Draw
+    if asia_endSession
+        //---Color
+        color_line = asia_color_line
+        color_label = asia_color_label
+        color_text =asia_past_text_color
+        color_dir = asia_past_close_price >= asia_past_open_price ? asia_color_bullish : asia_color_bearish
+        //---Line
+        if asia_past_high_index < asia_past_low_index
+            array.push(asia_past_line_movement, line.new(asia_past_open_index, asia_past_open_price, asia_past_high_index, asia_past_high_price, color=color_line, width=asia_width, style=asia_style_movement_value))
+            array.push(asia_past_line_movement, line.new(asia_past_low_index, asia_past_low_price, asia_past_close_index, asia_past_close_price, color=color_line, width=asia_width, style=asia_style_movement_value))
+            array.push(asia_past_line_movement, line.new(asia_past_low_index, asia_past_low_price, asia_past_high_index, asia_past_high_price, color=color_line, width=asia_width, style=asia_style_movement_value))
+        else
+            array.push(asia_past_line_movement, line.new(asia_past_open_index, asia_past_open_price, asia_past_low_index, asia_past_low_price, color=color_line, width=asia_width, style=asia_style_movement_value))
+            array.push(asia_past_line_movement, line.new(asia_past_high_index, asia_past_high_price, asia_past_close_index, asia_past_close_price, color=color_line, width=asia_width, style=asia_style_movement_value))
+            array.push(asia_past_line_movement, line.new(asia_past_low_index, asia_past_low_price, asia_past_high_index, asia_past_high_price, color=color_line, width=asia_width, style=asia_style_movement_value))
+        //------Label
+        if asia_label_enable or asia_all_enable
+            if asia_past_high_index < asia_past_low_index     
+                array.push(asia_past_label_movement, label.new(asia_past_open_index, asia_past_open_price, text =str.tostring(math.round((asia_past_high_price - asia_past_open_price) * 10000)) , style = asia_past_label_movement_style, color = color_label, textcolor = color_text))
+                array.push(asia_past_label_movement, label.new(asia_past_high_index, asia_past_high_price, text =str.tostring(math.round((asia_past_high_price - asia_past_low_price) * 10000)) , style = asia_past_label_movement_style, color = color_label, textcolor = color_text))
+                array.push(asia_past_label_movement, label.new(asia_past_low_index, asia_past_low_price, text =str.tostring(math.round((asia_past_close_price - asia_past_low_price) * 10000)) , style = asia_past_label_movement_style, color = color_label, textcolor = color_text))
+            else   
+                array.push(asia_past_label_movement, label.new(asia_past_open_index, asia_past_open_price, text =str.tostring(math.round((asia_past_open_price - asia_past_low_price) * 10000)) , style = asia_past_label_movement_style, color = color_label, textcolor = color_text))
+                array.push(asia_past_label_movement, label.new(asia_past_low_index, asia_past_low_price, text =str.tostring(math.round((asia_past_high_price - asia_past_low_price) * 10000)) , style = asia_past_label_movement_style, color = color_label, textcolor = color_text))
+                array.push(asia_past_label_movement, label.new(asia_past_high_index, asia_past_high_price, text =str.tostring(math.round((asia_past_high_price - asia_past_close_price) * 10000)) , style = asia_past_label_movement_style, color = color_label, textcolor =color_text))
+        //------Total
+        if asia_total_enable or asia_all_enable
+            array.push(asia_past_line_total, line.new(asia_past_open_index, asia_past_open_price, asia_past_close_index, asia_past_close_price, color=color_line, width=asia_width, style=asia_style_total_value))
+            i = asia_past_open_index+((asia_past_close_index - asia_past_open_index)/2)
+            p = asia_past_open_price+((asia_past_close_price - asia_past_open_price)/2)
+            t = str.tostring(math.round((asia_past_close_price - asia_past_open_price) * 10000))
+            array.push(asia_past_label_total, label.new(i, p, text =t , style =asia_past_label_total_style, color = color_dir, textcolor =color_text))
+        //---Limit
+        while array.size(asia_past_line_movement) > asia_limit * 3
+            line.delete(array.shift(asia_past_line_movement))
+        while array.size(asia_past_label_movement) > asia_limit * 3
+            label.delete(array.shift(asia_past_label_movement))
+        while array.size(asia_past_line_total) > asia_limit
+            line.delete(array.shift(asia_past_line_total))
+        while array.size(asia_past_label_total) > asia_limit
+            label.delete(array.shift(asia_past_label_total))
+//----------
+//Live
+//----------
+if (asia_live_enable or asia_all_enable) and in_this_day
+    //------Reset
+    if asia_startSession
+        //---Index
+        asia_live_open_index := bar_index
+        asia_live_high_index := bar_index
+        asia_live_low_index := bar_index
+        asia_live_close_index := bar_index
+        //---Price
+        asia_live_open_price := open
+        asia_live_high_price := high
+        asia_live_low_price := low
+        asia_live_close_price := close
+    //------Update
+    if asia_inSession 
+        //---Clear 
+        line.delete(asia_live_line_1)
+        line.delete(asia_live_line_2)
+        line.delete(asia_live_line_3)
+        line.delete(asia_live_line_4)
+        label.delete(asia_live_label_1) 
+        label.delete(asia_live_label_2) 
+        label.delete(asia_live_label_3) 
+        label.delete(asia_live_label_4) 
+        //---High
+        if high >= asia_live_high_price
+            asia_live_high_price := high
+            asia_live_high_index := bar_index
+        //---Low
+        if low <= asia_live_low_price
+            asia_live_low_price := low
+            asia_live_low_index := bar_index
+        //---Close
+        asia_live_close_price := close
+        asia_live_close_index := bar_index
+        //---Color
+        color_line = asia_color_line
+        color_label = asia_color_label
+        color_text =asia_live_text_color
+        color_dir = asia_live_close_price >= asia_live_open_price ? asia_color_bullish : asia_color_bearish
+        //---Line
+        asia_live_color_profile := asia_live_close_price >= asia_live_open_price ? asia_color_bullish : asia_color_bearish
+        if asia_live_high_index < asia_live_low_index
+            asia_live_line_1 :=line.new(asia_live_open_index, asia_live_open_price, asia_live_high_index, asia_live_high_price, color=color_line, width=asia_width, style=asia_style_movement_value)
+            asia_live_line_2 :=line.new(asia_live_low_index, asia_live_low_price, asia_live_close_index, asia_live_close_price, color=color_line, width=asia_width, style=asia_style_movement_value)
+            asia_live_line_3 :=line.new(asia_live_low_index, asia_live_low_price, asia_live_high_index, asia_live_high_price, color=color_line, width=asia_width, style=asia_style_movement_value)
+        else
+            asia_live_line_1 :=line.new(asia_live_open_index, asia_live_open_price, asia_live_low_index, asia_live_low_price, color=color_line, width=asia_width, style=asia_style_movement_value)
+            asia_live_line_2 :=line.new(asia_live_high_index, asia_live_high_price, asia_live_close_index, asia_live_close_price, color=color_line, width=asia_width, style=asia_style_movement_value)
+            asia_live_line_3 :=line.new(asia_live_low_index, asia_live_low_price, asia_live_high_index, asia_live_high_price, color=color_line, width=asia_width, style=asia_style_movement_value)
+        //------Label
+        if asia_label_enable or asia_all_enable
+            if asia_live_high_index < asia_live_low_index     
+                asia_live_label_1 := label.new(asia_live_open_index, asia_live_open_price, text =str.tostring(math.round((asia_live_high_price - asia_live_open_price) * 10000)) , style = asia_live_label_movement_style, color = color_label, textcolor = color_text)
+                asia_live_label_2 := label.new(asia_live_high_index, asia_live_high_price, text =str.tostring(math.round((asia_live_high_price - asia_live_low_price) * 10000)) , style = asia_live_label_movement_style, color = color_label, textcolor = color_text)
+                asia_live_label_3 := label.new(asia_live_low_index, asia_live_low_price, text =str.tostring(math.round((asia_live_close_price - asia_live_low_price) * 10000)) , style = asia_live_label_movement_style, color = color_label, textcolor = color_text)
+            else   
+                asia_live_label_1 := label.new(asia_live_open_index, asia_live_open_price, text =str.tostring(math.round((asia_live_open_price - asia_live_low_price) * 10000)) , style = asia_live_label_movement_style, color = color_label, textcolor = color_text)
+                asia_live_label_2 := label.new(asia_live_low_index, asia_live_low_price, text =str.tostring(math.round((asia_live_high_price - asia_live_low_price) * 10000)) , style = asia_live_label_movement_style, color = color_label, textcolor = color_text)
+                asia_live_label_3 := label.new(asia_live_high_index, asia_live_high_price, text =str.tostring(math.round((asia_live_high_price - asia_live_close_price) * 10000)) , style = asia_live_label_movement_style, color = color_label, textcolor =color_text)
+        //------Total
+        if asia_total_enable or asia_all_enable
+            asia_live_line_4 := line.new(asia_live_open_index, asia_live_open_price, asia_live_close_index, asia_live_close_price, color=color_line, width=asia_width, style=asia_style_total_value)
+            i = asia_live_open_index+((asia_live_close_index - asia_live_open_index)/2)
+            p = asia_live_open_price+((asia_live_close_price - asia_live_open_price)/2)
+            t = str.tostring(math.round((asia_live_close_price - asia_live_open_price) * 10000))
+            asia_live_label_4 := label.new(i, p, text =t , style =asia_live_label_total_style, color = color_dir, textcolor =color_text)
+
+//*************************
+//Uk
+//*************************
+//----------
+//Past
+//----------
+if uk_past_enable or uk_all_enable
+    //------Set
+    if uk_startSession
+        //---Index
+        uk_past_open_index := bar_index
+        uk_past_high_index := bar_index
+        uk_past_low_index := bar_index
+        uk_past_close_index := bar_index
+        //---Price
+        uk_past_open_price := open
+        uk_past_high_price := high
+        uk_past_low_price := low
+        uk_past_close_price := close
+    //------Update
+    if uk_inSession
+        //---High
+        if high >= uk_past_high_price
+            uk_past_high_price := high
+            uk_past_high_index := bar_index
+        //---Low
+        if low <= uk_past_low_price
+            uk_past_low_price := low
+            uk_past_low_index := bar_index
+        //---Close
+        uk_past_close_price := close
+        uk_past_close_index := bar_index
+    //------Draw
+    if uk_endSession
+        //---Color
+        color_line = uk_color_line
+        color_label = uk_color_label
+        color_text =uk_past_text_color
+        color_dir = uk_past_close_price >= uk_past_open_price ? uk_color_bullish : uk_color_bearish
+        //---Line
+        if uk_past_high_index < uk_past_low_index
+            array.push(uk_past_line_movement, line.new(uk_past_open_index, uk_past_open_price, uk_past_high_index, uk_past_high_price, color=color_line, width=uk_width, style=uk_style_movement_value))
+            array.push(uk_past_line_movement, line.new(uk_past_low_index, uk_past_low_price, uk_past_close_index, uk_past_close_price, color=color_line, width=uk_width, style=uk_style_movement_value))
+            array.push(uk_past_line_movement, line.new(uk_past_low_index, uk_past_low_price, uk_past_high_index, uk_past_high_price, color=color_line, width=uk_width, style=uk_style_movement_value))
+        else
+            array.push(uk_past_line_movement, line.new(uk_past_open_index, uk_past_open_price, uk_past_low_index, uk_past_low_price, color=color_line, width=uk_width, style=uk_style_movement_value))
+            array.push(uk_past_line_movement, line.new(uk_past_high_index, uk_past_high_price, uk_past_close_index, uk_past_close_price, color=color_line, width=uk_width, style=uk_style_movement_value))
+            array.push(uk_past_line_movement, line.new(uk_past_low_index, uk_past_low_price, uk_past_high_index, uk_past_high_price, color=color_line, width=uk_width, style=uk_style_movement_value))
+        //------Label
+        if uk_label_enable or uk_all_enable
+            if uk_past_high_index < uk_past_low_index     
+                array.push(uk_past_label_movement, label.new(uk_past_open_index, uk_past_open_price, text =str.tostring(math.round((uk_past_high_price - uk_past_open_price) * 10000)) , style = uk_past_label_movement_style, color = color_label, textcolor = color_text))
+                array.push(uk_past_label_movement, label.new(uk_past_high_index, uk_past_high_price, text =str.tostring(math.round((uk_past_high_price - uk_past_low_price) * 10000)) , style = uk_past_label_movement_style, color = color_label, textcolor = color_text))
+                array.push(uk_past_label_movement, label.new(uk_past_low_index, uk_past_low_price, text =str.tostring(math.round((uk_past_close_price - uk_past_low_price) * 10000)) , style = uk_past_label_movement_style, color = color_label, textcolor = color_text))
+            else   
+                array.push(uk_past_label_movement, label.new(uk_past_open_index, uk_past_open_price, text =str.tostring(math.round((uk_past_open_price - uk_past_low_price) * 10000)) , style = uk_past_label_movement_style, color = color_label, textcolor = color_text))
+                array.push(uk_past_label_movement, label.new(uk_past_low_index, uk_past_low_price, text =str.tostring(math.round((uk_past_high_price - uk_past_low_price) * 10000)) , style = uk_past_label_movement_style, color = color_label, textcolor = color_text))
+                array.push(uk_past_label_movement, label.new(uk_past_high_index, uk_past_high_price, text =str.tostring(math.round((uk_past_high_price - uk_past_close_price) * 10000)) , style = uk_past_label_movement_style, color = color_label, textcolor =color_text))
+        //------Total
+        if uk_total_enable or uk_all_enable
+            array.push(uk_past_line_total, line.new(uk_past_open_index, uk_past_open_price, uk_past_close_index, uk_past_close_price, color=color_line, width=uk_width, style=uk_style_total_value))
+            i = uk_past_open_index+((uk_past_close_index - uk_past_open_index)/2)
+            p = uk_past_open_price+((uk_past_close_price - uk_past_open_price)/2)
+            t = str.tostring(math.round((uk_past_close_price - uk_past_open_price) * 10000))
+            array.push(uk_past_label_total, label.new(i, p, text =t , style =uk_past_label_total_style, color = color_dir, textcolor =color_text))
+        //---Limit
+        while array.size(uk_past_line_movement) > uk_limit * 3
+            line.delete(array.shift(uk_past_line_movement))
+        while array.size(uk_past_label_movement) > uk_limit * 3
+            label.delete(array.shift(uk_past_label_movement))
+        while array.size(uk_past_line_total) > uk_limit
+            line.delete(array.shift(uk_past_line_total))
+        while array.size(uk_past_label_total) > uk_limit
+            label.delete(array.shift(uk_past_label_total))
+//----------
+//Live
+//----------
+if (uk_live_enable or uk_all_enable) and in_this_day
+    //------Reset
+    if uk_startSession
+        //---Index
+        uk_live_open_index := bar_index
+        uk_live_high_index := bar_index
+        uk_live_low_index := bar_index
+        uk_live_close_index := bar_index
+        //---Price
+        uk_live_open_price := open
+        uk_live_high_price := high
+        uk_live_low_price := low
+        uk_live_close_price := close
+    //------Update
+    if uk_inSession 
+        //---Clear 
+        line.delete(uk_live_line_1)
+        line.delete(uk_live_line_2)
+        line.delete(uk_live_line_3)
+        line.delete(uk_live_line_4)
+        label.delete(uk_live_label_1) 
+        label.delete(uk_live_label_2) 
+        label.delete(uk_live_label_3) 
+        label.delete(uk_live_label_4) 
+        //---High
+        if high >= uk_live_high_price
+            uk_live_high_price := high
+            uk_live_high_index := bar_index
+        //---Low
+        if low <= uk_live_low_price
+            uk_live_low_price := low
+            uk_live_low_index := bar_index
+        //---Close
+        uk_live_close_price := close
+        uk_live_close_index := bar_index
+        //---Color
+        color_line = uk_color_line
+        color_label = uk_color_label
+        color_text =uk_live_text_color
+        color_dir = uk_live_close_price >= uk_live_open_price ? uk_color_bullish : uk_color_bearish
+        //---Line
+        uk_live_color_profile := uk_live_close_price >= uk_live_open_price ? uk_color_bullish : uk_color_bearish
+        if uk_live_high_index < uk_live_low_index
+            uk_live_line_1 :=line.new(uk_live_open_index, uk_live_open_price, uk_live_high_index, uk_live_high_price, color=color_line, width=uk_width, style=uk_style_movement_value)
+            uk_live_line_2 :=line.new(uk_live_low_index, uk_live_low_price, uk_live_close_index, uk_live_close_price, color=color_line, width=uk_width, style=uk_style_movement_value)
+            uk_live_line_3 :=line.new(uk_live_low_index, uk_live_low_price, uk_live_high_index, uk_live_high_price, color=color_line, width=uk_width, style=uk_style_movement_value)
+        else
+            uk_live_line_1 :=line.new(uk_live_open_index, uk_live_open_price, uk_live_low_index, uk_live_low_price, color=color_line, width=uk_width, style=uk_style_movement_value)
+            uk_live_line_2 :=line.new(uk_live_high_index, uk_live_high_price, uk_live_close_index, uk_live_close_price, color=color_line, width=uk_width, style=uk_style_movement_value)
+            uk_live_line_3 :=line.new(uk_live_low_index, uk_live_low_price, uk_live_high_index, uk_live_high_price, color=color_line, width=uk_width, style=uk_style_movement_value)
+        //------Label
+        if uk_label_enable or uk_all_enable
+            if uk_live_high_index < uk_live_low_index     
+                uk_live_label_1 := label.new(uk_live_open_index, uk_live_open_price, text =str.tostring(math.round((uk_live_high_price - uk_live_open_price) * 10000)) , style = uk_live_label_movement_style, color = color_label, textcolor = color_text)
+                uk_live_label_2 := label.new(uk_live_high_index, uk_live_high_price, text =str.tostring(math.round((uk_live_high_price - uk_live_low_price) * 10000)) , style = uk_live_label_movement_style, color = color_label, textcolor = color_text)
+                uk_live_label_3 := label.new(uk_live_low_index, uk_live_low_price, text =str.tostring(math.round((uk_live_close_price - uk_live_low_price) * 10000)) , style = uk_live_label_movement_style, color = color_label, textcolor = color_text)
+            else   
+                uk_live_label_1 := label.new(uk_live_open_index, uk_live_open_price, text =str.tostring(math.round((uk_live_open_price - uk_live_low_price) * 10000)) , style = uk_live_label_movement_style, color = color_label, textcolor = color_text)
+                uk_live_label_2 := label.new(uk_live_low_index, uk_live_low_price, text =str.tostring(math.round((uk_live_high_price - uk_live_low_price) * 10000)) , style = uk_live_label_movement_style, color = color_label, textcolor = color_text)
+                uk_live_label_3 := label.new(uk_live_high_index, uk_live_high_price, text =str.tostring(math.round((uk_live_high_price - uk_live_close_price) * 10000)) , style = uk_live_label_movement_style, color = color_label, textcolor =color_text)
+        //------Total
+        if uk_total_enable or uk_all_enable
+            uk_live_line_4 := line.new(uk_live_open_index, uk_live_open_price, uk_live_close_index, uk_live_close_price, color=color_line, width=uk_width, style=uk_style_total_value)
+            i = uk_live_open_index+((uk_live_close_index - uk_live_open_index)/2)
+            p = uk_live_open_price+((uk_live_close_price - uk_live_open_price)/2)
+            t = str.tostring(math.round((uk_live_close_price - uk_live_open_price) * 10000))
+            uk_live_label_4 := label.new(i, p, text =t , style =uk_live_label_total_style, color = color_dir, textcolor =color_text)
+
+//*************************
+//Usa
+//*************************
+//----------
+//Past
+//----------
+if usa_past_enable or usa_all_enable
+    //------Set
+    if usa_startSession
+        //---Index
+        usa_past_open_index := bar_index
+        usa_past_high_index := bar_index
+        usa_past_low_index := bar_index
+        usa_past_close_index := bar_index
+        //---Price
+        usa_past_open_price := open
+        usa_past_high_price := high
+        usa_past_low_price := low
+        usa_past_close_price := close
+    //------Update
+    if usa_inSession
+        //---High
+        if high >= usa_past_high_price
+            usa_past_high_price := high
+            usa_past_high_index := bar_index
+        //---Low
+        if low <= usa_past_low_price
+            usa_past_low_price := low
+            usa_past_low_index := bar_index
+        //---Close
+        usa_past_close_price := close
+        usa_past_close_index := bar_index
+    //------Draw
+    if usa_endSession
+        //---Color
+        color_line = usa_color_line
+        color_label = usa_color_label
+        color_text =usa_past_text_color
+        color_dir = usa_past_close_price >= usa_past_open_price ? usa_color_bullish : usa_color_bearish
+        //---Line
+        if usa_past_high_index < usa_past_low_index
+            array.push(usa_past_line_movement, line.new(usa_past_open_index, usa_past_open_price, usa_past_high_index, usa_past_high_price, color=color_line, width=usa_width, style=usa_style_movement_value))
+            array.push(usa_past_line_movement, line.new(usa_past_low_index, usa_past_low_price, usa_past_close_index, usa_past_close_price, color=color_line, width=usa_width, style=usa_style_movement_value))
+            array.push(usa_past_line_movement, line.new(usa_past_low_index, usa_past_low_price, usa_past_high_index, usa_past_high_price, color=color_line, width=usa_width, style=usa_style_movement_value))
+        else
+            array.push(usa_past_line_movement, line.new(usa_past_open_index, usa_past_open_price, usa_past_low_index, usa_past_low_price, color=color_line, width=usa_width, style=usa_style_movement_value))
+            array.push(usa_past_line_movement, line.new(usa_past_high_index, usa_past_high_price, usa_past_close_index, usa_past_close_price, color=color_line, width=usa_width, style=usa_style_movement_value))
+            array.push(usa_past_line_movement, line.new(usa_past_low_index, usa_past_low_price, usa_past_high_index, usa_past_high_price, color=color_line, width=usa_width, style=usa_style_movement_value))
+        //------Label
+        if usa_label_enable or usa_all_enable
+            if usa_past_high_index < usa_past_low_index     
+                array.push(usa_past_label_movement, label.new(usa_past_open_index, usa_past_open_price, text =str.tostring(math.round((usa_past_high_price - usa_past_open_price) * 10000)) , style = usa_past_label_movement_style, color = color_label, textcolor = color_text))
+                array.push(usa_past_label_movement, label.new(usa_past_high_index, usa_past_high_price, text =str.tostring(math.round((usa_past_high_price - usa_past_low_price) * 10000)) , style = usa_past_label_movement_style, color = color_label, textcolor = color_text))
+                array.push(usa_past_label_movement, label.new(usa_past_low_index, usa_past_low_price, text =str.tostring(math.round((usa_past_close_price - usa_past_low_price) * 10000)) , style = usa_past_label_movement_style, color = color_label, textcolor = color_text))
+            else   
+                array.push(usa_past_label_movement, label.new(usa_past_open_index, usa_past_open_price, text =str.tostring(math.round((usa_past_open_price - usa_past_low_price) * 10000)) , style = usa_past_label_movement_style, color = color_label, textcolor = color_text))
+                array.push(usa_past_label_movement, label.new(usa_past_low_index, usa_past_low_price, text =str.tostring(math.round((usa_past_high_price - usa_past_low_price) * 10000)) , style = usa_past_label_movement_style, color = color_label, textcolor = color_text))
+                array.push(usa_past_label_movement, label.new(usa_past_high_index, usa_past_high_price, text =str.tostring(math.round((usa_past_high_price - usa_past_close_price) * 10000)) , style = usa_past_label_movement_style, color = color_label, textcolor =color_text))
+        //------Total
+        if usa_total_enable or usa_all_enable
+            array.push(usa_past_line_total, line.new(usa_past_open_index, usa_past_open_price, usa_past_close_index, usa_past_close_price, color=color_line, width=usa_width, style=usa_style_total_value))
+            i = usa_past_open_index+((usa_past_close_index - usa_past_open_index)/2)
+            p = usa_past_open_price+((usa_past_close_price - usa_past_open_price)/2)
+            t = str.tostring(math.round((usa_past_close_price - usa_past_open_price) * 10000))
+            array.push(usa_past_label_total, label.new(i, p, text =t , style =usa_past_label_total_style, color = color_dir, textcolor =color_text))
+        //---Limit
+        while array.size(usa_past_line_movement) > usa_limit * 3
+            line.delete(array.shift(usa_past_line_movement))
+        while array.size(usa_past_label_movement) > usa_limit * 3
+            label.delete(array.shift(usa_past_label_movement))
+        while array.size(usa_past_line_total) > usa_limit
+            line.delete(array.shift(usa_past_line_total))
+        while array.size(usa_past_label_total) > usa_limit
+            label.delete(array.shift(usa_past_label_total))
+//----------
+//Live
+//----------
+if (usa_live_enable or usa_all_enable) and in_this_day
+    //------Reset
+    if usa_startSession
+        //---Index
+        usa_live_open_index := bar_index
+        usa_live_high_index := bar_index
+        usa_live_low_index := bar_index
+        usa_live_close_index := bar_index
+        //---Price
+        usa_live_open_price := open
+        usa_live_high_price := high
+        usa_live_low_price := low
+        usa_live_close_price := close
+    //------Update
+    if usa_inSession 
+        //---Clear 
+        line.delete(usa_live_line_1)
+        line.delete(usa_live_line_2)
+        line.delete(usa_live_line_3)
+        line.delete(usa_live_line_4)
+        label.delete(usa_live_label_1) 
+        label.delete(usa_live_label_2) 
+        label.delete(usa_live_label_3) 
+        label.delete(usa_live_label_4) 
+        //---High
+        if high >= usa_live_high_price
+            usa_live_high_price := high
+            usa_live_high_index := bar_index
+        //---Low
+        if low <= usa_live_low_price
+            usa_live_low_price := low
+            usa_live_low_index := bar_index
+        //---Close
+        usa_live_close_price := close
+        usa_live_close_index := bar_index
+        //---Color
+        color_line = usa_color_line
+        color_label = usa_color_label
+        color_text =usa_live_text_color
+        color_dir = usa_live_close_price >= usa_live_open_price ? usa_color_bullish : usa_color_bearish
+        //---Line
+        usa_live_color_profile := usa_live_close_price >= usa_live_open_price ? usa_color_bullish : usa_color_bearish
+        if usa_live_high_index < usa_live_low_index
+            usa_live_line_1 :=line.new(usa_live_open_index, usa_live_open_price, usa_live_high_index, usa_live_high_price, color=color_line, width=usa_width, style=usa_style_movement_value)
+            usa_live_line_2 :=line.new(usa_live_low_index, usa_live_low_price, usa_live_close_index, usa_live_close_price, color=color_line, width=usa_width, style=usa_style_movement_value)
+            usa_live_line_3 :=line.new(usa_live_low_index, usa_live_low_price, usa_live_high_index, usa_live_high_price, color=color_line, width=usa_width, style=usa_style_movement_value)
+        else
+            usa_live_line_1 :=line.new(usa_live_open_index, usa_live_open_price, usa_live_low_index, usa_live_low_price, color=color_line, width=usa_width, style=usa_style_movement_value)
+            usa_live_line_2 :=line.new(usa_live_high_index, usa_live_high_price, usa_live_close_index, usa_live_close_price, color=color_line, width=usa_width, style=usa_style_movement_value)
+            usa_live_line_3 :=line.new(usa_live_low_index, usa_live_low_price, usa_live_high_index, usa_live_high_price, color=color_line, width=usa_width, style=usa_style_movement_value)
+        //------Label
+        if usa_label_enable or usa_all_enable
+            if usa_live_high_index < usa_live_low_index     
+                usa_live_label_1 := label.new(usa_live_open_index, usa_live_open_price, text =str.tostring(math.round((usa_live_high_price - usa_live_open_price) * 10000)) , style = usa_live_label_movement_style, color = color_label, textcolor = color_text)
+                usa_live_label_2 := label.new(usa_live_high_index, usa_live_high_price, text =str.tostring(math.round((usa_live_high_price - usa_live_low_price) * 10000)) , style = usa_live_label_movement_style, color = color_label, textcolor = color_text)
+                usa_live_label_3 := label.new(usa_live_low_index, usa_live_low_price, text =str.tostring(math.round((usa_live_close_price - usa_live_low_price) * 10000)) , style = usa_live_label_movement_style, color = color_label, textcolor = color_text)
+            else   
+                usa_live_label_1 := label.new(usa_live_open_index, usa_live_open_price, text =str.tostring(math.round((usa_live_open_price - usa_live_low_price) * 10000)) , style = usa_live_label_movement_style, color = color_label, textcolor = color_text)
+                usa_live_label_2 := label.new(usa_live_low_index, usa_live_low_price, text =str.tostring(math.round((usa_live_high_price - usa_live_low_price) * 10000)) , style = usa_live_label_movement_style, color = color_label, textcolor = color_text)
+                usa_live_label_3 := label.new(usa_live_high_index, usa_live_high_price, text =str.tostring(math.round((usa_live_high_price - usa_live_close_price) * 10000)) , style = usa_live_label_movement_style, color = color_label, textcolor =color_text)
+        //------Total
+        if usa_total_enable or usa_all_enable
+            usa_live_line_4 := line.new(usa_live_open_index, usa_live_open_price, usa_live_close_index, usa_live_close_price, color=color_line, width=usa_width, style=usa_style_total_value)
+            i = usa_live_open_index+((usa_live_close_index - usa_live_open_index)/2)
+            p = usa_live_open_price+((usa_live_close_price - usa_live_open_price)/2)
+            t = str.tostring(math.round((usa_live_close_price - usa_live_open_price) * 10000))
+            usa_live_label_4 := label.new(i, p, text =t , style =usa_live_label_total_style, color = color_dir, textcolor =color_text)

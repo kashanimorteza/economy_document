@@ -1,0 +1,995 @@
+//@version=6
+indicator("MAFX - Line", overlay=true, max_lines_count=500)
+
+
+
+//*********************************************************************************************************************************
+// INPUT
+//*********************************************************************************************************************************
+//*************************
+//*** Day
+//*************************
+//----------
+//Last-Open
+//----------
+day_last_open_enable = input.bool(true, "LO", group="-------------------- Day", inline = '1')
+day_last_open_color = input.color(color.new(color.purple, 70), "", group="-------------------- Day", inline = '1')
+day_last_open_color_label = input.color(color.new(color.purple, 25), "", group="-------------------- Day", inline = '1')
+day_last_open_color_text = input.color(color.new(color.black, 0), "", group="-------------------- Day", inline = '1')
+day_last_open_style= input.string("Solid", "", options=["Solid","Dashed","Dotted"], group="-------------------- Day", inline = '1')
+day_last_open_with = input.int(3, "", minval=1, maxval=5, group="-------------------- Day", inline = '1')
+//----------
+//Last-High
+//----------
+day_last_high_enable = input.bool(true, "LH", group="-------------------- Day", inline = '2')
+day_last_high_color = input.color(color.new(color.purple, 70), "", group="-------------------- Day", inline = '2')
+day_last_high_color_label = input.color(color.new(color.purple, 25), "", group="-------------------- Day", inline = '2')
+day_last_high_color_text = input.color(color.new(color.black, 0), "", group="-------------------- Day", inline = '2')
+day_last_high_style= input.string("Solid", "", options=["Solid","Dashed","Dotted"], group="-------------------- Day", inline = '2')
+day_last_high_with = input.int(3, "", minval=1, maxval=5, group="-------------------- Day", inline = '2')
+//----------
+//Last-Low
+//----------
+day_last_low_enable = input.bool(true, "LL", group="-------------------- Day", inline = '3')
+day_last_low_color = input.color(color.new(color.purple, 70), "", group="-------------------- Day", inline = '3')
+day_last_low_color_label = input.color(color.new(color.purple, 25), "", group="-------------------- Day", inline = '3')
+day_last_low_color_text = input.color(color.new(color.black, 0), "", group="-------------------- Day", inline = '3')
+day_last_low_style= input.string("Solid", "", options=["Solid","Dashed","Dotted"], group="-------------------- Day", inline = '3')
+day_last_low_with = input.int(3, "", minval=1, maxval=5, group="-------------------- Day", inline = '3')
+//----------
+//Last-Close
+//----------
+day_last_close_enable = input.bool(true, "LC", group="-------------------- Day", inline = '4')
+day_last_close_color = input.color(color.new(color.purple, 70), "", group="-------------------- Day", inline = '4')
+day_last_close_color_label = input.color(color.new(color.purple, 25), "", group="-------------------- Day", inline = '4')
+day_last_close_color_text = input.color(color.new(color.black, 0), "", group="-------------------- Day", inline = '4')
+day_last_close_style= input.string("Solid", "", options=["Solid","Dashed","Dotted"], group="-------------------- Day", inline = '4')
+day_last_close_with = input.int(3, "", minval=1, maxval=5, group="-------------------- Day", inline = '4')
+
+//*************************
+//*** Week
+//*************************
+//----------
+//This-Open
+//----------
+week_this_open_enable = input.bool(true, "TO", group="-------------------- Week", inline = '1')
+week_this_open_color = input.color(color.new(color.blue, 25), "", group="-------------------- Week", inline = '1')
+week_this_open_color_label = input.color(color.new(color.blue, 25), "", group="-------------------- Week", inline = '1')
+week_this_open_color_text = input.color(color.new(color.black, 0), "", group="-------------------- Week", inline = '1')
+week_this_open_style= input.string("Solid", "", options=["Solid","Dashed","Dotted"], group="-------------------- Week", inline = '1')
+week_this_open_with = input.int(1, "", minval=1, maxval=5, group="-------------------- Week", inline = '1')
+//----------
+//Last-Open
+//----------
+week_last_open_enable = input.bool(true, "LO", group="-------------------- Week", inline = '2')
+week_last_open_color = input.color(color.new(color.blue, 70), "", group="-------------------- Week", inline = '2')
+week_last_open_color_label = input.color(color.new(color.blue, 25), "", group="-------------------- Week", inline = '2')
+week_last_open_color_text = input.color(color.new(color.black, 0), "", group="-------------------- Week", inline = '2')
+week_last_open_style= input.string("Solid", "", options=["Solid","Dashed","Dotted"], group="-------------------- Week", inline = '2')
+week_last_open_with = input.int(3, "", minval=1, maxval=5, group="-------------------- Week", inline = '2')
+//----------
+//Last-High
+//----------
+week_last_high_enable = input.bool(true, "LH", group="-------------------- Week", inline = '3')
+week_last_high_color = input.color(color.new(color.blue, 70), "", group="-------------------- Week", inline = '3')
+week_last_high_color_label = input.color(color.new(color.blue, 25), "", group="-------------------- Week", inline = '3')
+week_last_high_color_text = input.color(color.new(color.black, 0), "", group="-------------------- Week", inline = '3')
+week_last_high_style= input.string("Solid", "", options=["Solid","Dashed","Dotted"], group="-------------------- Week", inline = '3')
+week_last_high_with = input.int(3, "", minval=1, maxval=5, group="-------------------- Week", inline = '3')
+//----------
+//Last-Low
+//----------
+week_last_low_enable = input.bool(true, "LL", group="-------------------- Week", inline = '4')
+week_last_low_color = input.color(color.new(color.blue, 70), "", group="-------------------- Week", inline = '4')
+week_last_low_color_label = input.color(color.new(color.blue, 25), "", group="-------------------- Week", inline = '4')
+week_last_low_color_text = input.color(color.new(color.black, 0), "", group="-------------------- Week", inline = '4')
+week_last_low_style= input.string("Solid", "", options=["Solid","Dashed","Dotted"], group="-------------------- Week", inline = '4')
+week_last_low_with = input.int(3, "", minval=1, maxval=5, group="-------------------- Week", inline = '4')
+//----------
+//Last-Close
+//----------
+week_last_close_enable = input.bool(true, "LC", group="-------------------- Week", inline = '5')
+week_last_close_color = input.color(color.new(color.blue, 70), "", group="-------------------- Week", inline = '5')
+week_last_close_color_label = input.color(color.new(color.blue, 25), "", group="-------------------- Week", inline = '5')
+week_last_close_color_text = input.color(color.new(color.black, 0), "", group="-------------------- Week", inline = '5')
+week_last_close_style= input.string("Solid", "", options=["Solid","Dashed","Dotted"], group="-------------------- Week", inline = '5')
+week_last_close_with = input.int(3, "", minval=1, maxval=5, group="-------------------- Week", inline = '5')
+
+//*************************
+//*** Month
+//*************************
+//----------
+//This-Open
+//----------
+month_this_open_enable = input.bool(true, "TO", group="-------------------- Month", inline = '1')
+month_this_open_color = input.color(color.new(color.red, 25), "", group="-------------------- Month", inline = '1')
+month_this_open_color_label = input.color(color.new(color.red, 25), "", group="-------------------- Month", inline = '1')
+month_this_open_color_text = input.color(color.new(color.black, 0), "", group="-------------------- Month", inline = '1')
+month_this_open_style= input.string("Solid", "", options=["Solid","Dashed","Dotted"], group="-------------------- Month", inline = '1')
+month_this_open_with = input.int(1, "", minval=1, maxval=5, group="-------------------- Month", inline = '1')
+//----------
+//Last-Open
+//----------
+month_last_open_enable = input.bool(true, "LO", group="-------------------- Month", inline = '2')
+month_last_open_color = input.color(color.new(color.red, 70), "", group="-------------------- Month", inline = '2')
+month_last_open_color_label = input.color(color.new(color.red, 25), "", group="-------------------- Month", inline = '2')
+month_last_open_color_text = input.color(color.new(color.black, 0), "", group="-------------------- Month", inline = '2')
+month_last_open_style= input.string("Solid", "", options=["Solid","Dashed","Dotted"], group="-------------------- Month", inline = '2')
+month_last_open_with = input.int(3, "", minval=1, maxval=5, group="-------------------- Month", inline = '2')
+//----------
+//Last-High
+//----------
+month_last_high_enable = input.bool(true, "LH", group="-------------------- Month", inline = '3')
+month_last_high_color = input.color(color.new(color.red, 70), "", group="-------------------- Month", inline = '3')
+month_last_high_color_label = input.color(color.new(color.red, 25), "", group="-------------------- Month", inline = '3')
+month_last_high_color_text = input.color(color.new(color.black, 0), "", group="-------------------- Month", inline = '3')
+month_last_high_style= input.string("Solid", "", options=["Solid","Dashed","Dotted"], group="-------------------- Month", inline = '3')
+month_last_high_with = input.int(3, "", minval=1, maxval=5, group="-------------------- Month", inline = '3')
+//----------
+//Last-Low
+//----------
+month_last_low_enable = input.bool(true, "LL", group="-------------------- Month", inline = '4')
+month_last_low_color = input.color(color.new(color.red, 70), "", group="-------------------- Month", inline = '4')
+month_last_low_color_label = input.color(color.new(color.red, 25), "", group="-------------------- Month", inline = '4')
+month_last_low_color_text = input.color(color.new(color.black, 0), "", group="-------------------- Month", inline = '4')
+month_last_low_style= input.string("Solid", "", options=["Solid","Dashed","Dotted"], group="-------------------- Month", inline = '4')
+month_last_low_with = input.int(3, "", minval=1, maxval=5, group="-------------------- Month", inline = '4')
+//----------
+//Last-Close
+//----------
+month_last_close_enable = input.bool(true, "LC", group="-------------------- Month", inline = '5')
+month_last_close_color = input.color(color.new(color.red, 70), "", group="-------------------- Month", inline = '5')
+month_last_close_color_label = input.color(color.new(color.red, 0), "", group="-------------------- Month", inline = '5')
+month_last_close_color_text = input.color(color.new(color.black, 0), "", group="-------------------- Month", inline = '5')
+month_last_close_style= input.string("Solid", "", options=["Solid","Dashed","Dotted"], group="-------------------- Month", inline = '5')
+month_last_close_with = input.int(3, "", minval=1, maxval=5, group="-------------------- Month", inline = '5')
+
+//*************************
+//*** Asia
+//*************************
+//----------
+//This-Open
+//----------
+day_this_asia_open_enable = input.bool(true, "TO", group="-------------------- Asia", inline = '1')
+day_this_asia_open_color = input.color(color.new(color.yellow, 25), "", group="-------------------- Asia", inline = '1')
+day_this_asia_open_color_label = input.color(color.new(color.yellow, 25), "", group="-------------------- Asia", inline = '1')
+day_this_asia_open_color_text = input.color(color.new(color.black, 0), "", group="-------------------- Asia", inline = '1')
+day_this_asia_open_style= input.string("Solid", "", options=["Solid","Dashed","Dotted"], group="-------------------- Asia", inline = '1')
+day_this_asia_open_with = input.int(1, "", minval=1, maxval=5, group="-------------------- Asia", inline = '1')
+//day_this_asia_open_text1= input.string("DT-AO", "", group="-------------------- Asia", inline = '1')
+//----------
+//This-High
+//----------
+day_this_asia_high_enable = input.bool(true, "TH", group="-------------------- Asia", inline = '2')
+day_this_asia_high_color = input.color(color.new(color.yellow, 25), "", group="-------------------- Asia", inline = '2')
+day_this_asia_high_color_label = input.color(color.new(color.yellow, 25), "", group="-------------------- Asia", inline = '2')
+day_this_asia_high_color_text = input.color(color.new(color.black, 0), "", group="-------------------- Asia", inline = '2')
+day_this_asia_high_style= input.string("Solid", "", options=["Solid","Dashed","Dotted"], group="-------------------- Asia", inline = '2')
+day_this_asia_high_with = input.int(1, "", minval=1, maxval=5, group="-------------------- Asia", inline = '2')
+//----------
+//This-Low
+//----------
+day_this_asia_low_enable = input.bool(true, "TL", group="-------------------- Asia", inline = '3')
+day_this_asia_low_color = input.color(color.new(color.yellow, 25), "", group="-------------------- Asia", inline = '3')
+day_this_asia_low_color_label = input.color(color.new(color.yellow, 25), "", group="-------------------- Asia", inline = '3')
+day_this_asia_low_color_text = input.color(color.new(color.black, 0), "", group="-------------------- Asia", inline = '3')
+day_this_asia_low_style= input.string("Solid", "", options=["Solid","Dashed","Dotted"], group="-------------------- Asia", inline = '3')
+day_this_asia_low_with = input.int(1, "", minval=1, maxval=5, group="-------------------- Asia", inline = '3')
+//----------
+//This-Close
+//----------
+day_this_asia_close_enable = input.bool(true, "TC", group="-------------------- Asia", inline = '4')
+day_this_asia_close_color = input.color(color.new(color.yellow, 25), "", group="-------------------- Asia", inline = '4')
+day_this_asia_close_color_label = input.color(color.new(color.yellow, 25), "", group="-------------------- Asia", inline = '4')
+day_this_asia_close_color_text = input.color(color.new(color.black, 0), "", group="-------------------- Asia", inline = '4')
+day_this_asia_close_style= input.string("Solid", "", options=["Solid","Dashed","Dotted"], group="-------------------- Asia", inline = '4')
+day_this_asia_close_with = input.int(1, "", minval=1, maxval=5, group="-------------------- Asia", inline = '4')
+//----------
+//Last-High
+//----------
+day_last_asia_high_enable = input.bool(true, "LH", group="-------------------- Asia", inline = '5')
+day_last_asia_high_color = input.color(color.new(color.yellow, 70), "", group="-------------------- Asia", inline = '5')
+day_last_asia_high_color_label = input.color(color.new(color.yellow, 25), "", group="-------------------- Asia", inline = '5')
+day_last_asia_high_color_text = input.color(color.new(color.black, 0), "", group="-------------------- Asia", inline = '5')
+day_last_asia_high_style= input.string("Solid", "", options=["Solid","Dashed","Dotted"], group="-------------------- Asia", inline = '5')
+day_last_asia_high_with = input.int(3, "", minval=1, maxval=5, group="-------------------- Asia", inline = '5')
+//----------
+//Last-Low
+//----------
+day_last_asia_low_enable = input.bool(true, "LL", group="-------------------- Asia", inline = '6')
+day_last_asia_low_color = input.color(color.new(color.yellow, 70), "", group="-------------------- Asia", inline = '6')
+day_last_asia_low_color_label = input.color(color.new(color.yellow, 25), "", group="-------------------- Asia", inline = '6')
+day_last_asia_low_color_text = input.color(color.new(color.black, 0), "", group="-------------------- Asia", inline = '6')
+day_last_asia_low_style= input.string("Solid", "", options=["Solid","Dashed","Dotted"], group="-------------------- Asia", inline = '6')
+day_last_asia_low_with = input.int(3, "", minval=1, maxval=5, group="-------------------- Asia", inline = '6')
+
+//*************************
+//*** Uk
+//*************************
+//----------
+//Last-High
+//----------
+day_last_uk_high_enable = input.bool(true, "LH", group="-------------------- Uk", inline = '13')
+day_last_uk_high_color = input.color(color.new(color.green, 70), "", group="-------------------- Uk", inline = '13')
+day_last_uk_high_color_label = input.color(color.new(color.green, 0), "", group="-------------------- Uk", inline = '13')
+day_last_uk_high_color_text = input.color(color.new(color.black, 0), "", group="-------------------- Uk", inline = '13')
+day_last_uk_high_style= input.string("Solid", "", options=["Solid","Dashed","Dotted"], group="-------------------- Uk", inline = '13')
+day_last_uk_high_with = input.int(3, "", minval=1, maxval=5, group="-------------------- Uk", inline = '13')
+//----------
+//Uk-Low
+//----------
+day_last_uk_low_enable = input.bool(true, "LL", group="-------------------- Uk", inline = '14')
+day_last_uk_low_color = input.color(color.new(color.green, 70), "", group="-------------------- Uk", inline = '14')
+day_last_uk_low_color_label = input.color(color.new(color.green, 0), "", group="-------------------- Uk", inline = '14')
+day_last_uk_low_color_text = input.color(color.new(color.black, 0), "", group="-------------------- Uk", inline = '14')
+day_last_uk_low_style= input.string("Solid", "", options=["Solid","Dashed","Dotted"], group="-------------------- Uk", inline = '14')
+day_last_uk_low_with = input.int(3, "", minval=1, maxval=5, group="-------------------- Uk", inline = '14')
+
+//*************************
+//*** Usa
+//*************************
+//----------
+//Last-High
+//----------
+day_last_usa_high_enable = input.bool(true, "LH", group="-------------------- Usa", inline = '15')
+day_last_usa_high_color = input.color(color.new(color.blue, 70), "", group="-------------------- Usa", inline = '15')
+day_last_usa_high_color_label = input.color(color.new(color.blue, 0), "", group="-------------------- Usa", inline = '15')
+day_last_usa_high_color_text = input.color(color.new(color.black, 0), "", group="-------------------- Usa", inline = '15')
+day_last_usa_high_style= input.string("Solid", "", options=["Solid","Dashed","Dotted"], group="-------------------- Usa", inline = '15')
+day_last_usa_high_with = input.int(3, "", minval=1, maxval=5, group="-------------------- Usa", inline = '15')
+//----------
+//Usa-Low
+//----------
+day_last_usa_low_enable = input.bool(true, "LL", group="-------------------- Usa", inline = '16')
+day_last_usa_low_color = input.color(color.new(color.blue, 70), "", group="-------------------- Usa", inline = '16')
+day_last_usa_low_color_label = input.color(color.new(color.blue, 0), "", group="-------------------- Usa", inline = '16')
+day_last_usa_low_color_text = input.color(color.new(color.black, 0), "", group="-------------------- Usa", inline = '16')
+day_last_usa_low_style= input.string("Solid", "", options=["Solid","Dashed","Dotted"], group="-------------------- Usa", inline = '16')
+day_last_usa_low_with = input.int(3, "", minval=1, maxval=5, group="-------------------- Usa", inline = '16')
+
+//*************************
+//*** General
+//*************************
+general_tz= input.string("Europe/Moscow","Time Zone",options = ["Europe/Moscow","UTC","Europe/London","America/New_York","Asia/Tokyo","Asia/Dubai"], group="-------------------- General", inline = '1')
+asia_session = input.session("0000-0800", "Asia", group="-------------------- General", inline = '2')
+uk_session = input.session("1000-1800", "Uk", group="-------------------- General", inline = '3')
+usa_session = input.session("1500-2400", "Usa", group="-------------------- General", inline = '4')
+
+
+
+//*********************************************************************************************************************************
+// Method
+//*********************************************************************************************************************************
+//*************************
+//*** General
+//*************************
+in_this_year = year(time, general_tz) == year(timenow, general_tz) 
+in_this_month = year(time, general_tz) == year(timenow, general_tz) and month(time, general_tz) == month(timenow, general_tz) 
+in_this_week = year(time, general_tz) == year(timenow, general_tz) and month(time, general_tz) == month(timenow, general_tz) 
+in_this_day = year(time, general_tz) == year(timenow, general_tz) and month(time, general_tz) == month(timenow, general_tz) and weekofyear(time, general_tz) == weekofyear(timenow, general_tz) and dayofmonth(time, general_tz) == dayofmonth(timenow, general_tz)
+
+//------------
+//start_session
+//------------
+start_session(session) =>
+    start_hour   = int(str.tonumber(str.substring(session, 0, 2)))
+    start_minute = int(str.tonumber(str.substring(session, 2, 4)))
+    end_hour     = int(str.tonumber(str.substring(session, 5, 7)))
+    end_minute   = int(str.tonumber(str.substring(session, 7, 9)))
+    current_hour   = hour(timenow, general_tz)
+    current_minute = minute(timenow, general_tz)
+    current_hour > start_hour or (current_hour == start_hour and current_minute >= start_minute)
+    
+//------------
+//f_get_month
+//------------
+f_get_month(_time) =>
+    //------Variable
+    int m = month(_time)
+    int d = dayofmonth(_time)
+    //------Action
+    m := d > 1 ? m + 1 : m
+    m := m > 12 ? 1 : m
+    //------return
+    m
+//------------
+//is_this_year
+//------------
+is_this_year() =>
+    if year(timenow) == year(time)
+        true
+    else
+        false
+//-------------
+//is_this_month
+//-------------
+is_this_month() =>
+    if is_this_year()
+        if month(timenow) == month(time)
+            true
+        else
+            false
+
+//-------------
+//is_this_week
+//-------------
+is_this_week() =>
+    if is_this_month()
+        if weekofyear(timenow) == weekofyear(time)
+            true
+        else
+            false
+//-------------
+//is_this_day
+//-------------
+is_this_day() =>
+    if is_this_month()
+        if dayofmonth(timenow) == dayofmonth(time)
+            true
+        else
+            false
+
+
+
+//*********************************************************************************************************************************
+// Data
+//*********************************************************************************************************************************
+//*************************
+//*** Session
+//*************************
+//----------
+//Asia
+//----------
+asia_inSession    = not na(time(timeframe.period, asia_session, general_tz))
+asia_startSession = asia_inSession and not asia_inSession[1]
+asia_endSession   = not asia_inSession and asia_inSession[1]
+asia_today_start = start_session(asia_session)
+
+//----------
+//Uk
+//----------
+uk_inSession    = not na(time(timeframe.period, uk_session, general_tz))
+uk_startSession = uk_inSession and not uk_inSession[1]
+uk_endSession   = not uk_inSession and uk_inSession[1]
+uk_today_start = start_session(uk_session)
+//----------
+//Usa
+//----------
+usa_inSession    = not na(time(timeframe.period, usa_session, general_tz))
+usa_startSession = usa_inSession and not usa_inSession[1]
+usa_endSession   = not usa_inSession and usa_inSession[1]
+usa_today_start = start_session(usa_session) 
+
+
+//*************************
+//*** Day
+//*************************
+//----------
+//Last-Open
+//----------
+var int day_last_open_index  = na
+var float day_last_open_price  = na
+var line day_last_open_line = na
+var label day_last_open_label = na
+day_last_open_text= "D-LO"
+day_last_open_style_value = day_last_open_style == "Solid" ? line.style_solid : day_last_open_style == "Dashed" ? line.style_dashed : line.style_dotted
+//----------
+//Last-High
+//----------
+var int day_last_high_index  = na
+var float day_last_high_price  = na
+var line day_last_high_line = na
+var label day_last_high_label = na
+day_last_high_text= "D-LH"
+day_last_high_style_value = day_last_high_style == "Solid" ? line.style_solid : day_last_high_style == "Dashed" ? line.style_dashed : line.style_dotted
+//----------
+//Last-Low
+//----------
+var int day_last_low_index  = na
+var float day_last_low_price  = na
+var line day_last_low_line = na
+var label day_last_low_label = na
+day_last_low_text= "D-LL"
+day_last_low_style_value = day_last_low_style == "Solid" ? line.style_solid : day_last_low_style == "Dashed" ? line.style_dashed : line.style_dotted
+//----------
+//Last-Close
+//----------
+var int day_last_close_index  = na
+var float day_last_close_price  = na
+var line day_last_close_line = na
+var label day_last_close_label = na
+day_last_close_text= "D-LC"
+day_last_close_style_value = day_last_close_style == "Solid" ? line.style_solid : day_last_close_style == "Dashed" ? line.style_dashed : line.style_dotted
+
+//*************************
+//*** Week
+//*************************
+//----------
+//This-Open
+//----------
+var int week_this_open_index  = na
+var float week_this_open_price  = na
+var line week_this_open_line = na
+var label week_this_open_label = na
+week_this_open_text= "W-TO"
+week_this_open_style_value = week_this_open_style == "Solid" ? line.style_solid : week_this_open_style == "Dashed" ? line.style_dashed : line.style_dotted
+//----------
+//Last-Open
+//----------
+var int week_last_open_index  = na
+var float week_last_open_price  = na
+var line week_last_open_line = na
+var label week_last_open_label = na
+week_last_open_text= "W-LO"
+week_last_open_style_value = week_last_open_style == "Solid" ? line.style_solid : week_last_open_style == "Dashed" ? line.style_dashed : line.style_dotted
+//----------
+//Last-High
+//----------
+var int week_last_high_index  = na
+var float week_last_high_price  = na
+var line week_last_high_line = na
+var label week_last_high_label = na
+week_last_high_text= "W-LH"
+week_last_high_style_value = week_last_high_style == "Solid" ? line.style_solid : week_last_high_style == "Dashed" ? line.style_dashed : line.style_dotted
+//----------
+//Last-Low
+//----------
+var int week_last_low_index  = na
+var float week_last_low_price  = na
+var line week_last_low_line = na
+var label week_last_low_label = na
+week_last_low_text= "W-LL"
+week_last_low_style_value = week_last_low_style == "Solid" ? line.style_solid : week_last_low_style == "Dashed" ? line.style_dashed : line.style_dotted
+//----------
+//Last-Close
+//----------
+var int week_last_close_index  = na
+var float week_last_close_price  = na
+var line week_last_close_line = na
+var label week_last_close_label = na
+week_last_close_text= "W-LC"
+week_last_close_style_value = week_last_close_style == "Solid" ? line.style_solid : week_last_close_style == "Dashed" ? line.style_dashed : line.style_dotted
+
+//*************************
+//*** Month
+//*************************
+//----------
+//This-Open
+//----------
+var int month_this_open_index  = na
+var float month_this_open_price  = na
+var line month_this_open_line = na
+var label month_this_open_label = na
+month_this_open_text= "M-TO"
+month_this_open_style_value = month_this_open_style == "Solid" ? line.style_solid : month_this_open_style == "Dashed" ? line.style_dashed : line.style_dotted
+//----------
+//Last-Open
+//----------
+var int month_last_open_index  = na
+var float month_last_open_price  = na
+var line month_last_open_line = na
+var label month_last_open_label = na
+month_last_open_text= "M-LO"
+month_last_open_style_value = month_last_open_style == "Solid" ? line.style_solid : month_last_open_style == "Dashed" ? line.style_dashed : line.style_dotted
+//----------
+//Last-High
+//----------
+var int month_last_high_index  = na
+var float month_last_high_price  = na
+var line month_last_high_line = na
+var label month_last_high_label = na
+month_last_high_text= "M-LH"
+month_last_high_style_value = month_last_high_style == "Solid" ? line.style_solid : month_last_high_style == "Dashed" ? line.style_dashed : line.style_dotted
+//----------
+//Last-Low
+//----------
+var int month_last_low_index  = na
+var float month_last_low_price  = na
+var line month_last_low_line = na
+var label month_last_low_label = na
+month_last_low_text= "M-LL"
+month_last_low_style_value = month_last_low_style == "Solid" ? line.style_solid : month_last_low_style == "Dashed" ? line.style_dashed : line.style_dotted
+//----------
+//Last-Close
+//----------
+var int month_last_close_index  = na
+var float month_last_close_price  = na
+var line month_last_close_line = na
+var label month_last_close_label = na
+month_last_close_text= "M-LC"
+month_last_close_style_value = month_last_close_style == "Solid" ? line.style_solid : month_last_close_style == "Dashed" ? line.style_dashed : line.style_dotted
+
+
+//*************************
+//*** Asia
+//*************************
+//----------
+//This-Open
+//----------
+var int day_this_asia_open_index  = na
+var float day_this_asia_open_price  = na
+var line day_this_asia_open_line = na
+var label day_this_asia_open_label = na
+day_this_asia_open_text= "DT-AO"
+day_this_asia_open_style_value = day_this_asia_open_style == "Solid" ? line.style_solid : day_this_asia_open_style == "Dashed" ? line.style_dashed : line.style_dotted
+//----------
+//This-High
+//----------
+var int day_this_asia_high_index  = na
+var float day_this_asia_high_price  = na
+var line day_this_asia_high_line = na
+var label day_this_asia_high_label = na
+day_this_asia_high_text= "DT-AH"
+day_this_asia_high_style_value = day_this_asia_high_style == "Solid" ? line.style_solid : day_this_asia_high_style == "Dashed" ? line.style_dashed : line.style_dotted
+//----------
+//This-Low
+//----------
+var int day_this_asia_low_index  = na
+var float day_this_asia_low_price  = na
+var line day_this_asia_low_line = na
+var label day_this_asia_low_label = na
+day_this_asia_low_text= "DT-AL"
+day_this_asia_low_style_value = day_this_asia_low_style == "Solid" ? line.style_solid : day_this_asia_low_style == "Dashed" ? line.style_dashed : line.style_dotted
+//----------
+//This-Close
+//----------
+var int day_this_asia_close_index  = na
+var float day_this_asia_close_price  = na
+var line day_this_asia_close_line = na
+var label day_this_asia_close_label = na
+day_this_asia_close_text= "DT-AC"
+day_this_asia_close_style_value = day_this_asia_close_style == "Solid" ? line.style_solid : day_this_asia_close_style == "Dashed" ? line.style_dashed : line.style_dotted
+//----------
+//Last-High
+//----------
+var int day_last_asia_high_index  = na
+var float day_last_asia_high_price  = na
+var line day_last_asia_high_line = na
+var label day_last_asia_high_label = na
+day_last_asia_high_text= "DL-AH"
+day_last_asia_high_style_value = day_last_asia_high_style == "Solid" ? line.style_solid : day_last_asia_high_style == "Dashed" ? line.style_dashed : line.style_dotted
+//----------
+//Last-Low
+//----------
+var int day_last_asia_low_index  = na
+var float day_last_asia_low_price  = na
+var line day_last_asia_low_line = na
+var label day_last_asia_low_label = na
+day_last_asia_low_text= "DL-AL"
+day_last_asia_low_style_value = day_last_asia_low_style == "Solid" ? line.style_solid : day_last_asia_low_style == "Dashed" ? line.style_dashed : line.style_dotted
+
+//*************************
+//*** Uk
+//*************************
+//----------
+//Last-High
+//----------
+var int day_last_uk_high_index  = na
+var float day_last_uk_high_price  = na
+var line day_last_uk_high_line = na
+var label day_last_uk_high_label = na
+day_last_uk_high_text= "DL-UKH"
+day_last_uk_high_style_value = day_last_uk_high_style == "Solid" ? line.style_solid : day_last_uk_high_style == "Dashed" ? line.style_dashed : line.style_dotted
+//----------
+//Last-Low
+//----------
+var int day_last_uk_low_index  = na
+var float day_last_uk_low_price  = na
+var line day_last_uk_low_line = na
+var label day_last_uk_low_label = na
+day_last_uk_low_text= "DL-UKL"
+day_last_uk_low_style_value = day_last_uk_low_style == "Solid" ? line.style_solid : day_last_uk_low_style == "Dashed" ? line.style_dashed : line.style_dotted
+
+//*************************
+//*** Usa
+//*************************
+//----------
+//Last-High
+//----------
+var int day_last_usa_high_index  = na
+var float day_last_usa_high_price  = na
+var line day_last_usa_high_line = na
+var label day_last_usa_high_label = na
+day_last_usa_high_text= "DL-USH"
+day_last_usa_high_style_value = day_last_usa_high_style == "Solid" ? line.style_solid : day_last_usa_high_style == "Dashed" ? line.style_dashed : line.style_dotted
+//----------
+//Last-Low
+//----------
+var int day_last_usa_low_index  = na
+var float day_last_usa_low_price  = na
+var line day_last_usa_low_line = na
+var label day_last_usa_low_label = na
+day_last_usa_low_text= "DL-USL"
+day_last_usa_low_style_value = day_last_usa_low_style == "Solid" ? line.style_solid : day_last_usa_low_style == "Dashed" ? line.style_dashed : line.style_dotted
+
+
+
+//*********************************************************************************************************************************
+// Action
+//*********************************************************************************************************************************
+//*************************
+//*** Day
+//*************************
+//----------
+//Last
+//----------
+if timeframe.change("D") 
+    //------Clear
+    //---Line
+    line.delete(day_last_open_line)
+    line.delete(day_last_high_line)
+    line.delete(day_last_low_line)
+    line.delete(day_last_close_line)
+    //---Label
+    label.delete(day_last_open_label)
+    label.delete(day_last_high_label)
+    label.delete(day_last_low_label)
+    label.delete(day_last_close_label)
+    //------Draw
+    //---Open
+    if day_last_open_enable            
+        style = day_last_open_style == "Solid" ? line.style_solid : day_last_open_style == "Dashed" ? line.style_dashed : line.style_dotted
+        day_last_open_line := line.new(day_last_open_index, day_last_open_price, day_last_open_index+1, day_last_open_price, color=day_last_open_color, width=day_last_open_with, style=style, extend=extend.right)
+        day_last_open_label := label.new(day_last_open_index, day_last_open_price, text = day_last_open_text, color=day_last_open_color_label, textcolor=day_last_open_color_text, style = label.style_label_down)
+    //---High
+    if day_last_high_enable
+        style = day_last_high_style == "Solid" ? line.style_solid : day_last_high_style == "Dashed" ? line.style_dashed : line.style_dotted
+        day_last_high_line := line.new(day_last_high_index, day_last_high_price, day_last_high_index+1, day_last_high_price, color=day_last_high_color, width=day_last_high_with, style=style, extend=extend.right)
+        day_last_high_label := label.new(day_last_high_index, day_last_high_price, text = day_last_high_text, color=day_last_high_color_label, textcolor=day_last_high_color_text, style = label.style_label_down)
+    //---Low
+    if day_last_low_enable
+        style = day_last_low_style == "Solid" ? line.style_solid : day_last_low_style == "Dashed" ? line.style_dashed : line.style_dotted
+        day_last_low_line := line.new(day_last_low_index, day_last_low_price, day_last_low_index+1, day_last_low_price, color=day_last_low_color, width=day_last_low_with, style=style, extend=extend.right)
+        day_last_low_label := label.new(day_last_low_index, day_last_low_price, text = day_last_low_text, color=day_last_low_color_label, textcolor=day_last_low_color_text, style = label.style_label_down)
+    //---Close
+    if day_last_close_enable
+        style = day_last_close_style == "Solid" ? line.style_solid : day_last_close_style == "Dashed" ? line.style_dashed : line.style_dotted
+        day_last_close_line := line.new(day_last_close_index, day_last_close_price, day_last_close_index+1, day_last_close_price, color=day_last_close_color, width=day_last_close_with, style=style, extend=extend.right)
+        day_last_close_label := label.new(day_last_close_index, day_last_close_price, text = day_last_close_text, color=day_last_close_color_label, textcolor=day_last_close_color_text, style = label.style_label_down)
+    //---Set
+    day_last_open_index := bar_index
+    day_last_open_price := open
+    day_last_high_index := bar_index
+    day_last_high_price := high
+    day_last_low_index := bar_index
+    day_last_low_price := low
+    day_last_close_index := bar_index
+    day_last_close_price := close
+else
+    if low < day_last_low_price
+        day_last_low_index := bar_index
+        day_last_low_price := low
+    if high > day_last_high_price
+        day_last_high_index := bar_index
+        day_last_high_price := high
+    day_last_close_index := bar_index    
+    day_last_close_price := close
+
+//*************************
+//*** Week
+//*************************
+//----------
+//This
+//----------
+if week_this_open_enable   
+    if timeframe.change("W")    
+        //------Clear
+        //---Line
+        line.delete(week_this_open_line)
+        //---Label
+        label.delete(week_this_open_label)
+        //------Draw
+        week_this_open_index := bar_index
+        week_this_open_price := open
+        style = week_this_open_style == "Solid" ? line.style_solid : week_this_open_style == "Dashed" ? line.style_dashed : line.style_dotted
+        week_this_open_line := line.new(week_this_open_index, week_this_open_price, week_this_open_index+1, week_this_open_price, color=week_this_open_color, width=week_this_open_with, style=style, extend=extend.right)
+        week_this_open_label := label.new(week_this_open_index, week_this_open_price, text = week_this_open_text, color=week_this_open_color_label, textcolor=week_this_open_color_text, style = label.style_label_down)
+//----------
+//Last
+//----------
+if timeframe.change("W") 
+    //------Clear
+    //---Line
+    line.delete(week_last_open_line)
+    line.delete(week_last_high_line)
+    line.delete(week_last_low_line)
+    line.delete(week_last_close_line)
+    //---Label
+    label.delete(week_last_open_label)
+    label.delete(week_last_high_label)
+    label.delete(week_last_low_label)
+    label.delete(week_last_close_label)
+    //------Draw
+    //---Open
+    if week_last_open_enable            
+        style = week_last_open_style == "Solid" ? line.style_solid : week_last_open_style == "Dashed" ? line.style_dashed : line.style_dotted
+        week_last_open_line := line.new(week_last_open_index, week_last_open_price, week_last_open_index+1, week_last_open_price, color=week_last_open_color, width=week_last_open_with, style=style, extend=extend.right)
+        week_last_open_label := label.new(week_last_open_index, week_last_open_price, text = week_last_open_text, color=week_last_open_color_label, textcolor=week_last_open_color_text, style = label.style_label_down)
+    //---High
+    if week_last_high_enable
+        style = week_last_high_style == "Solid" ? line.style_solid : week_last_high_style == "Dashed" ? line.style_dashed : line.style_dotted
+        week_last_high_line := line.new(week_last_high_index, week_last_high_price, week_last_high_index+1, week_last_high_price, color=week_last_high_color, width=week_last_high_with, style=style, extend=extend.right)
+        week_last_high_label := label.new(week_last_high_index, week_last_high_price, text = week_last_high_text, color=week_last_high_color_label, textcolor=week_last_high_color_text, style = label.style_label_down)
+    //---Low
+    if week_last_low_enable
+        style = week_last_low_style == "Solid" ? line.style_solid : week_last_low_style == "Dashed" ? line.style_dashed : line.style_dotted
+        week_last_low_line := line.new(week_last_low_index, week_last_low_price, week_last_low_index+1, week_last_low_price, color=week_last_low_color, width=week_last_low_with, style=style, extend=extend.right)
+        week_last_low_label := label.new(week_last_low_index, week_last_low_price, text = week_last_low_text, color=week_last_low_color_label, textcolor=week_last_low_color_text, style = label.style_label_down)
+    //---Close
+    if week_last_close_enable
+        style = week_last_close_style == "Solid" ? line.style_solid : week_last_close_style == "Dashed" ? line.style_dashed : line.style_dotted
+        week_last_close_line := line.new(week_last_close_index, week_last_close_price, week_last_close_index+1, week_last_close_price, color=week_last_close_color, width=week_last_close_with, style=style, extend=extend.right)
+        week_last_close_label := label.new(week_last_close_index, week_last_close_price, text = week_last_close_text, color=week_last_close_color_label, textcolor=week_last_close_color_text, style = label.style_label_down)
+    //---Set
+    week_last_open_index := bar_index
+    week_last_open_price := open
+    week_last_high_index := bar_index
+    week_last_high_price := high
+    week_last_low_index := bar_index
+    week_last_low_price := low
+    week_last_close_index := bar_index
+    week_last_close_price := close
+else
+    if low < week_last_low_price
+        week_last_low_index := bar_index
+        week_last_low_price := low
+    if high > week_last_high_price
+        week_last_high_index := bar_index
+        week_last_high_price := high
+    week_last_close_index := bar_index    
+    week_last_close_price := close
+
+//*************************
+//*** Month
+//*************************
+//----------
+//This
+//----------
+if month_this_open_enable   
+    if timeframe.change("M")    
+        //------Clear
+        //---Line
+        line.delete(month_this_open_line)
+        //---Label
+        label.delete(month_this_open_label)
+        //------Draw
+        month_this_open_index := bar_index
+        month_this_open_price := open
+        style = month_this_open_style == "Solid" ? line.style_solid : month_this_open_style == "Dashed" ? line.style_dashed : line.style_dotted
+        month_this_open_line := line.new(month_this_open_index, month_this_open_price, month_this_open_index+1, month_this_open_price, color=month_this_open_color, width=month_this_open_with, style=style, extend=extend.right)
+        month_this_open_label := label.new(month_this_open_index, month_this_open_price, text = month_this_open_text, color=month_this_open_color_label, textcolor=month_this_open_color_text, style = label.style_label_down)
+//----------
+//Last
+//----------
+if timeframe.change("M") 
+    //------Clear
+    //---Line
+    line.delete(month_last_open_line)
+    line.delete(month_last_high_line)
+    line.delete(month_last_low_line)
+    line.delete(month_last_close_line)
+    //---Label
+    label.delete(month_last_open_label)
+    label.delete(month_last_high_label)
+    label.delete(month_last_low_label)
+    label.delete(month_last_close_label)
+    //------Draw
+    //---Open
+    if month_last_open_enable            
+        style = month_last_open_style == "Solid" ? line.style_solid : month_last_open_style == "Dashed" ? line.style_dashed : line.style_dotted
+        month_last_open_line := line.new(month_last_open_index, month_last_open_price, month_last_open_index+1, month_last_open_price, color=month_last_open_color, width=month_last_open_with, style=style, extend=extend.right)
+        month_last_open_label := label.new(month_last_open_index, month_last_open_price, text = month_last_open_text, color=month_last_open_color_label, textcolor=month_last_open_color_text, style = label.style_label_down)
+    //---High
+    if month_last_high_enable
+        style = month_last_high_style == "Solid" ? line.style_solid : month_last_high_style == "Dashed" ? line.style_dashed : line.style_dotted
+        month_last_high_line := line.new(month_last_high_index, month_last_high_price, month_last_high_index+1, month_last_high_price, color=month_last_high_color, width=month_last_high_with, style=style, extend=extend.right)
+        month_last_high_label := label.new(month_last_high_index, month_last_high_price, text = month_last_high_text, color=month_last_high_color_label, textcolor=month_last_high_color_text, style = label.style_label_down)
+    //---Low
+    if month_last_low_enable
+        style = month_last_low_style == "Solid" ? line.style_solid : month_last_low_style == "Dashed" ? line.style_dashed : line.style_dotted
+        month_last_low_line := line.new(month_last_low_index, month_last_low_price, month_last_low_index+1, month_last_low_price, color=month_last_low_color, width=month_last_low_with, style=style, extend=extend.right)
+        month_last_low_label := label.new(month_last_low_index, month_last_low_price, text = month_last_low_text, color=month_last_low_color_label, textcolor=month_last_low_color_text, style = label.style_label_down)
+    //---Close
+    if month_last_close_enable
+        style = month_last_close_style == "Solid" ? line.style_solid : month_last_close_style == "Dashed" ? line.style_dashed : line.style_dotted
+        month_last_close_line := line.new(month_last_close_index, month_last_close_price, month_last_close_index+1, month_last_close_price, color=month_last_close_color, width=month_last_close_with, style=style, extend=extend.right)
+        month_last_close_label := label.new(month_last_close_index, month_last_close_price, text = month_last_close_text, color=month_last_close_color_label, textcolor=month_last_close_color_text, style = label.style_label_down)
+    //---Set
+    month_last_open_index := bar_index
+    month_last_open_price := open
+    month_last_high_index := bar_index
+    month_last_high_price := high
+    month_last_low_index := bar_index
+    month_last_low_price := low
+    month_last_close_index := bar_index
+    month_last_close_price := close
+else
+    if low < month_last_low_price
+        month_last_low_index := bar_index
+        month_last_low_price := low
+    if high > month_last_high_price
+        month_last_high_index := bar_index
+        month_last_high_price := high
+    month_last_close_index := bar_index    
+    month_last_close_price := close
+
+//*************************
+//*** Asia
+//*************************
+//----------
+//This-Open
+//----------
+if day_this_asia_open_enable and in_this_day and asia_startSession
+    day_this_asia_open_index := bar_index
+    day_this_asia_open_price := open
+    day_this_asia_open_line:=line.new(day_this_asia_open_index, day_this_asia_open_price, day_this_asia_open_index+1, day_this_asia_open_price, color=day_this_asia_open_color, width=day_this_asia_open_with, style=day_this_asia_open_style_value, extend=extend.right)
+    day_this_asia_open_label :=label.new(day_this_asia_open_index, day_this_asia_open_price, text = day_this_asia_open_text, color=day_this_asia_open_color_label, textcolor=day_this_asia_open_color_text, style = label.style_label_down)
+//----------
+//This-High
+//----------
+if day_this_asia_high_enable and in_this_day 
+    //------Start
+    if asia_startSession
+        //---Index
+        day_this_asia_high_index := bar_index
+        //---Price
+        day_this_asia_high_price := high
+    //------Update
+    if asia_inSession 
+        //---Clear
+        line.delete(day_this_asia_high_line)
+        //---High
+        if high >= day_this_asia_high_price
+            day_this_asia_high_index := bar_index
+            day_this_asia_high_price := high
+        //---Draw        
+        day_this_asia_high_line:=line.new(day_this_asia_high_index, day_this_asia_high_price, day_this_asia_high_index+1, day_this_asia_high_price, color=day_this_asia_high_color, width=day_this_asia_high_with, style=day_this_asia_high_style_value, extend=extend.right)
+        label.delete(day_this_asia_high_label)
+        day_this_asia_high_label :=label.new(day_this_asia_high_index, day_this_asia_high_price, text = day_this_asia_high_text, color=day_this_asia_high_color_label, textcolor=day_this_asia_high_color_text, style = label.style_label_down)
+//----------
+//This-Low
+//----------
+if day_this_asia_low_enable and in_this_day
+    //------Start
+    if asia_startSession
+        //---Index
+        day_this_asia_low_index := bar_index
+        //---Price
+        day_this_asia_low_price := low
+    //------Update
+    if asia_inSession 
+        //---Clear
+        line.delete(day_this_asia_low_line)
+        //---Low
+        if low <= day_this_asia_low_price
+            day_this_asia_low_index := bar_index
+            day_this_asia_low_price := low
+        //---Draw        
+        day_this_asia_low_line:=line.new(day_this_asia_low_index, day_this_asia_low_price, day_this_asia_low_index+1, day_this_asia_low_price, color=day_this_asia_low_color, width=day_this_asia_low_with, style=day_this_asia_low_style_value, extend=extend.right)
+        label.delete(day_this_asia_low_label)
+        day_this_asia_low_label :=label.new(day_this_asia_low_index, day_this_asia_low_price, text = day_this_asia_low_text, color=day_this_asia_low_color_label, textcolor=day_this_asia_low_color_text, style = label.style_label_down)
+//----------
+//This-Close
+//----------
+if day_this_asia_close_enable and in_this_day
+    //------Start
+    if asia_inSession 
+        //---Clear
+        line.delete(day_this_asia_close_line)
+        //---Close
+        day_this_asia_close_index := bar_index
+        day_this_asia_close_price := close
+        //---Draw        
+        day_this_asia_close_line:=line.new(day_this_asia_close_index, day_this_asia_close_price, day_this_asia_close_index+1, day_this_asia_close_price, color=day_this_asia_close_color, width=day_this_asia_close_with, style=day_this_asia_close_style_value, extend=extend.right)
+        label.delete(day_this_asia_close_label)
+        day_this_asia_close_label :=label.new(day_this_asia_close_index, day_this_asia_close_price, text = day_this_asia_close_text, color=day_this_asia_close_color_label, textcolor=day_this_asia_close_color_text, style = label.style_label_down)
+//----------
+// Last-High
+//----------
+if day_last_asia_high_enable and not in_this_day
+    //------Start
+    if asia_startSession
+        day_last_asia_high_index := bar_index
+        day_last_asia_high_price := high
+    //------Update
+    if asia_inSession
+        if high > day_last_asia_high_price
+            day_last_asia_high_index := bar_index
+            day_last_asia_high_price := high      
+        line.delete(day_last_asia_high_line)
+        label.delete(day_last_asia_high_label)
+        day_last_asia_high_line := line.new(day_last_asia_high_index, day_last_asia_high_price, day_last_asia_high_index+1, day_last_asia_high_price, color=day_last_asia_high_color, width=day_last_asia_high_with, style=day_last_asia_high_style_value, extend=extend.right)
+        day_last_asia_high_label := label.new(day_last_asia_high_index, day_last_asia_high_price, text = day_last_asia_high_text, color=day_last_asia_high_color_label, textcolor=day_last_asia_high_color_text, style = label.style_label_down)
+//----------
+// Last-Low
+//----------
+if day_last_asia_low_enable and not in_this_day
+    //------Start
+    if asia_startSession
+        day_last_asia_low_index := bar_index
+        day_last_asia_low_price := low
+    //------Update
+    if asia_inSession
+        if low < day_last_asia_low_price
+            day_last_asia_low_index := bar_index
+            day_last_asia_low_price := low      
+        line.delete(day_last_asia_low_line)
+        label.delete(day_last_asia_low_label)
+        day_last_asia_low_line := line.new(day_last_asia_low_index, day_last_asia_low_price, day_last_asia_low_index+1, day_last_asia_low_price, color=day_last_asia_low_color, width=day_last_asia_low_with, style=day_last_asia_low_style_value, extend=extend.right)
+        day_last_asia_low_label := label.new(day_last_asia_low_index, day_last_asia_low_price, text = day_last_asia_low_text, color=day_last_asia_low_color_label, textcolor=day_last_asia_low_color_text, style = label.style_label_down)
+
+//*************************
+//*** Uk
+//*************************
+//----------
+// Last-High
+//----------
+if day_last_uk_high_enable and not in_this_day
+    //------Start
+    if uk_startSession
+        day_last_uk_high_index := bar_index
+        day_last_uk_high_price := high
+    //------Update
+    if uk_inSession
+        if high > day_last_uk_high_price
+            day_last_uk_high_index := bar_index
+            day_last_uk_high_price := high      
+        line.delete(day_last_uk_high_line)
+        label.delete(day_last_uk_high_label)
+        day_last_uk_high_line := line.new(day_last_uk_high_index, day_last_uk_high_price, day_last_uk_high_index+1, day_last_uk_high_price, color=day_last_uk_high_color, width=day_last_uk_high_with, style=day_last_uk_high_style_value, extend=extend.right)
+        day_last_uk_high_label := label.new(day_last_uk_high_index, day_last_uk_high_price, text = day_last_uk_high_text, color=day_last_uk_high_color_label, textcolor=day_last_uk_high_color_text, style = label.style_label_down)
+//----------
+// Last-Low
+//----------
+if day_last_uk_low_enable and not in_this_day
+    //------Start
+    if uk_startSession
+        day_last_uk_low_index := bar_index
+        day_last_uk_low_price := low
+    //------Update
+    if uk_inSession
+        if low < day_last_uk_low_price
+            day_last_uk_low_index := bar_index
+            day_last_uk_low_price := low      
+        line.delete(day_last_uk_low_line)
+        label.delete(day_last_uk_low_label)
+        day_last_uk_low_line := line.new(day_last_uk_low_index, day_last_uk_low_price, day_last_uk_low_index+1, day_last_uk_low_price, color=day_last_uk_low_color, width=day_last_uk_low_with, style=day_last_uk_low_style_value, extend=extend.right)
+        day_last_uk_low_label := label.new(day_last_uk_low_index, day_last_uk_low_price, text = day_last_uk_low_text, color=day_last_uk_low_color_label, textcolor=day_last_uk_low_color_text, style = label.style_label_down)
+
+//*************************
+//*** USA
+//*************************
+//----------
+// Last-High
+//----------
+if day_last_usa_high_enable and not in_this_day
+    //------Start
+    if usa_startSession
+        day_last_usa_high_index := bar_index
+        day_last_usa_high_price := high
+    //------Update
+    if usa_inSession
+        if high > day_last_usa_high_price
+            day_last_usa_high_index := bar_index
+            day_last_usa_high_price := high      
+        line.delete(day_last_usa_high_line)
+        label.delete(day_last_usa_high_label)
+        day_last_usa_high_line := line.new(day_last_usa_high_index, day_last_usa_high_price, day_last_usa_high_index+1, day_last_usa_high_price, color=day_last_usa_high_color, width=day_last_usa_high_with, style=day_last_usa_high_style_value, extend=extend.right)
+        day_last_usa_high_label := label.new(day_last_usa_high_index, day_last_usa_high_price, text = day_last_usa_high_text, color=day_last_usa_high_color_label, textcolor=day_last_usa_high_color_text, style = label.style_label_down)
+//----------
+// Last-Low
+//----------
+if day_last_usa_low_enable and not in_this_day
+    //------Start
+    if usa_startSession
+        day_last_usa_low_index := bar_index
+        day_last_usa_low_price := low
+    //------Update
+    if usa_inSession
+        if low < day_last_usa_low_price
+            day_last_usa_low_index := bar_index
+            day_last_usa_low_price := low      
+        line.delete(day_last_usa_low_line)
+        label.delete(day_last_usa_low_label)
+        day_last_usa_low_line := line.new(day_last_usa_low_index, day_last_usa_low_price, day_last_usa_low_index+1, day_last_usa_low_price, color=day_last_usa_low_color, width=day_last_usa_low_with, style=day_last_usa_low_style_value, extend=extend.right)
+        day_last_usa_low_label := label.new(day_last_usa_low_index, day_last_usa_low_price, text = day_last_usa_low_text, color=day_last_usa_low_color_label, textcolor=day_last_usa_low_color_text, style = label.style_label_down)

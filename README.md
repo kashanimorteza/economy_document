@@ -16,6 +16,7 @@
 [Analysis](https://github.com/kashanimorteza/economy_document/tree/main/analysis.md)  
 [Money](https://github.com/kashanimorteza/economy_document/tree/main/money.md)  
 [Action](https://github.com/kashanimorteza/economy_document/tree/main/action.md)  
+[Data](https://github.com/kashanimorteza/economy_document/tree/main/data.md)  
   
 [Resource](https://github.com/kashanimorteza/economy_document/blob/main/resource.md)  
 [Knowledge](https://github.com/kashanimorteza/economy_document/tree/main/knowledge.md)  
@@ -26,9 +27,6 @@
 <!--------------------------------------------------------------------------------- Link -->
 [Economy]: https://github.com/kashanimorteza/economy_document/blob/main/README.md
 
-
-jahan bakhsh 
-yamini
 
 
 

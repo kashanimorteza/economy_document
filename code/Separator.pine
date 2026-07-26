@@ -1,0 +1,202 @@
+//@version=6
+indicator("MAFX - Separator", overlay=true)
+
+
+
+//*********************************************************************************************************************************
+// Input
+//*********************************************************************************************************************************
+
+//*************************
+//*** Month
+//*************************
+month_line_enable = input.bool(title="Line", defval=true, group = '-------------------- Month', inline = '1')
+month_line_limit = input.int(title="", defval=12, minval=1, maxval=100, step=1, group='-------------------- Month', inline = '1')
+month_line_color = input.color(color.new(color.red, 0), "", group="-------------------- Month", inline = '1')
+month_line_style = input.string("Solid", "", options=["Solid","Dashed","Dotted"], group="-------------------- Month", inline = '1')
+month_line_width = input.int(title="", defval=3, minval=1, maxval=5, step=1, group = '-------------------- Month', inline = '1')
+month_label_enable = input.bool(title="Label", defval=false, group = '-------------------- Month', inline = '2')
+month_label_color = input.color(color.new(color.red, 0), "", group="-------------------- Month", inline = '2')
+month_label_text = input.color(color.new(color.black, 0), "", group="-------------------- Month", inline = '2')
+
+//*************************
+//*** Week
+//*************************
+week_line_enable = input.bool(title="Line", defval=true, group = '-------------------- Week', inline = '1')
+week_line_limit = input.int(title="", defval=48, minval=1, maxval=100, step=1, group='-------------------- Week', inline = '1')
+week_line_color = input.color(color.new(color.blue, 0), "", group="-------------------- Week", inline = '1')
+week_line_style = input.string("Solid", "", options=["Solid","Dashed","Dotted"], group="-------------------- Week", inline = '1')
+week_line_width = input.int(title="", defval=2, minval=1, maxval=5, step=1, group = '-------------------- Week', inline = '1')
+week_label_enable = input.bool(title="Label", defval=false, group = '-------------------- Week', inline = '2')
+week_label_color = input.color(color.new(color.blue, 0), "", group="-------------------- Week", inline = '2')
+week_label_text = input.color(color.new(color.black, 0), "", group="-------------------- Week", inline = '2')
+
+//*************************
+//*** Day
+//*************************
+day_line_enable = input.bool(title="Line", defval=true, group = '-------------------- Day', inline = '1')
+day_line_limit = input.int(title="", defval=31, minval=1, maxval=100, step=1, group='-------------------- Day', inline = '1')
+day_line_color = input.color(color.new(color.purple, 0), "", group="-------------------- Day", inline = '1')
+day_line_style = input.string("Solid", "", options=["Solid","Dashed","Dotted"], group="-------------------- Day", inline = '1')
+day_line_width = input.int(title="", defval=1, minval=1, maxval=5, step=1, group = '-------------------- Day', inline = '1')
+day_label_enable = input.bool(title="Label", defval=false, group = '-------------------- Day', inline = '2')
+day_label_color = input.color(color.new(color.purple, 0), "", group="-------------------- Day", inline = '2')
+day_label_text = input.color(color.new(color.black, 0), "", group="-------------------- Day", inline = '2')
+
+//*************************
+//*** H4
+//*************************
+h4_line_enable = input.bool(title="Line", defval=false, group = '-------------------- H4', inline = '1')
+h4_line_limit = input.int(title="", defval=28, minval=1, maxval=100, step=1, group='-------------------- H4', inline = '1')
+h4_line_color = input.color(color.new(color.purple, 25), "", group="-------------------- H4", inline = '1')
+h4_line_style = input.string("Solid", "", options=["Solid","Dashed","Dotted"], group="-------------------- H4", inline = '1')
+h4_line_width = input.int(title="", defval=1, minval=1, maxval=5, step=1, group = '-------------------- H4', inline = '1')
+h4_label_enable = input.bool(title="Label", defval=false, group = '-------------------- H4', inline = '2')
+h4_label_color = input.color(color.new(color.purple, 0), "", group="-------------------- H4", inline = '2')
+h4_label_text = input.color(color.new(color.black, 0), "", group="-------------------- H4", inline = '2')
+
+//*************************
+//*** H1
+//*************************
+h1_line_enable = input.bool(title="Line", defval=false, group = '-------------------- H1', inline = '1')
+h1_line_limit = input.int(title="", defval=72, minval=1, maxval=100, step=1, group='-------------------- H1', inline = '1')
+h1_line_color = input.color(color.new(color.purple, 25), "", group="-------------------- H1", inline = '1')
+h1_line_style = input.string("Solid", "", options=["Solid","Dashed","Dotted"], group="-------------------- H1", inline = '1')
+h1_line_width = input.int(title="", defval=1, minval=1, maxval=5, step=1, group = '-------------------- H1', inline = '1')
+h1_label_enable = input.bool(title="Label", defval=false, group = '-------------------- H1', inline = '2')
+h1_label_color = input.color(color.new(color.purple, 0), "", group="-------------------- H1", inline = '2')
+h1_label_text = input.color(color.new(color.black, 0), "", group="-------------------- H1", inline = '2')
+
+
+
+//*********************************************************************************************************************************
+// Data
+//*********************************************************************************************************************************
+month_line_style_value = month_line_style == "Solid"  ? line.style_solid : month_line_style == "Dashed" ? line.style_dashed : line.style_dotted
+week_line_style_value = week_line_style == "Solid"  ? line.style_solid : week_line_style == "Dashed" ? line.style_dashed : line.style_dotted
+day_line_style_value = day_line_style == "Solid"  ? line.style_solid : day_line_style == "Dashed" ? line.style_dashed : line.style_dotted
+h4_line_style_value = h4_line_style == "Solid"  ? line.style_solid : h4_line_style == "Dashed" ? line.style_dashed : line.style_dotted
+h1_line_style_value = h1_line_style == "Solid"  ? line.style_solid : h1_line_style == "Dashed" ? line.style_dashed : line.style_dotted
+
+
+
+//*********************************************************************************************************************************
+//Action
+//*********************************************************************************************************************************
+//*************************
+//*** Month
+//*************************
+//------------
+//Line
+//------------
+if month_line_enable
+    var month_lines = array.new_line()
+    if timeframe.change("M")
+        line = line.new(bar_index, low, bar_index, high, extend=extend.both, color = month_line_color, width = month_line_width, style = month_line_style_value)
+        array.push(month_lines, line)
+        if array.size(month_lines) > month_line_limit
+            old = array.shift(month_lines)
+            line.delete(old)
+//------------
+//Label
+//------------
+if month_label_enable
+    var  month_labels= array.new_label()
+    string m = "Hello"
+    if timeframe.change("M")
+        if dayofmonth(time)>5
+            m := str.tostring(month+1)
+        else
+            m := str.tostring(month)
+        label = label.new(bar_index, high, text = m, style = label.style_label_down, color = month_label_color, textcolor =month_label_text)
+        array.push(month_labels, label)
+        if array.size(month_labels) > month_line_limit
+            old = array.shift(month_labels)
+            label.delete(old)
+
+//*************************
+//*** week
+//*************************
+//------------
+//Line
+//------------
+if(week_line_enable)
+    weekOfMonth = math.floor((dayofmonth - 1) / 7) + 1
+    var week_lines = array.new_line()
+    if timeframe.change("W")
+        l = line.new(bar_index, low, bar_index, high, extend=extend.both, color = week_line_color, width = week_line_width, style = week_line_style_value)
+        array.push(week_lines, l)
+        if array.size(week_lines) > week_line_limit
+            old = array.shift(week_lines)
+            line.delete(old)
+//------------
+//Label
+//------------
+if(week_label_enable)
+    var  week_labels= array.new_label()
+    weekOfMonth = math.floor((dayofmonth - 1) / 7) + 1
+    if timeframe.change("W")
+        label = label.new(bar_index,high,text = str.tostring(weekOfMonth),style = label.style_label_down,color = week_label_color, textcolor =week_label_text)
+        array.push(week_labels, label)
+        if array.size(week_labels) > week_line_limit
+            old = array.shift(week_labels)
+            label.delete(old)
+
+//*************************
+//*** Day
+//*************************
+//------------
+//Line
+//------------
+if(day_line_enable)
+    var day_lines = array.new_line()
+    if timeframe.change("D")
+        if not (week_line_enable and timeframe.change("W"))
+            line = line.new(bar_index, low, bar_index, high, extend=extend.both, color = day_line_color, width = day_line_width, style = day_line_style_value)
+            array.push(day_lines, line)
+            if array.size(day_lines) > day_line_limit
+                old = array.shift(day_lines)
+                line.delete(old)
+//----------
+//Label
+//----------
+if(day_label_enable)
+    var  day_labels= array.new_label()
+    if timeframe.change("D") 
+        if not (week_line_enable and timeframe.change("W")) 
+            label = label.new(bar_index,high,text = str.tostring(dayofmonth+1),style = label.style_label_down, color = day_label_color, textcolor =day_label_text)
+            array.push(day_labels, label)
+            if array.size(day_labels) > day_line_limit
+                old = array.shift(day_labels)
+                label.delete(old)
+
+//*************************
+//*** H4
+//*************************
+//------------
+//Line
+//------------
+if(h4_line_enable)
+    var h4_lines = array.new_line()
+    if timeframe.change("240")
+        line = line.new(bar_index, low, bar_index, high, extend=extend.both, color = h4_line_color, width = h4_line_width, style = h4_line_style_value)
+        array.push(h4_lines, line)
+        if array.size(h4_lines) > h4_line_limit
+            old = array.shift(h4_lines)
+            line.delete(old)
+
+//*************************
+//*** H1
+//*************************
+//------------
+//Line
+//------------
+if(h1_line_enable)
+    var h1_lines = array.new_line()
+    if timeframe.change("60")
+        line = line.new(bar_index, low, bar_index, high, extend=extend.both, color = h1_line_color, width = h1_line_width, style = h1_line_style_value)
+        array.push(h1_lines, line)
+        if array.size(h1_lines) > h1_line_limit
+            old = array.shift(h1_lines)
+            line.delete(old)
+
