@@ -45,32 +45,32 @@
 
 ### Price
 
-Layer 1 : Raw
-    Open
-    Close
-    High
-    Low
+Layer 1 : Raw  
+    Open  
+    Close  
+    High  
+    Low  
 
-Layer 2 : Distance
-    result              : close - open
-    excitement          : high - low
-    distance_open_high  : high - open
-    distance_open_low   : open - low
-    distance_close_high : high - close
-    distance_close_low  : close - Low
+Layer 2 : Distance  
+    result              : close - open  
+    excitement          : high - low  
+    distance_open_high  : high - open  
+    distance_open_low   : open - low  
+    distance_close_high : high - close  
+    distance_close_low  : close - Low  
 
-Layer 3 : Ratio
-    result_excitement          : result / excitement
-    result_distance_open_high  : result / distance_open_high
-    result_distance_open_low   : result / distance_open_low
-    result_distance_close_high : result / distance_close_high
-    result_distance_close_low  : result / distance_close_low
-    excitement_distance_open_high  : excitement / distance_open_high
-    excitement_distance_open_low   : excitement / distance_open_low
-    excitement_distance_close_high : excitement / distance_close_high
-    excitement_distance_close_low  : excitement / distance_close_low
+Layer 3 : Ratio  
+    result_excitement          : result / excitement  
+    result_distance_open_high  : result / distance_open_high  
+    result_distance_open_low   : result / distance_open_low  
+    result_distance_close_high : result / distance_close_high  
+    result_distance_close_low  : result / distance_close_low  
+    excitement_distance_open_high  : excitement / distance_open_high  
+    excitement_distance_open_low   : excitement / distance_open_low  
+    excitement_distance_close_high : excitement / distance_close_high  
+    excitement_distance_close_low  : excitement / distance_close_low  
 
-Property 
+Property  
     first_high_low  : Low | High
 
 
